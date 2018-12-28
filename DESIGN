@@ -68,6 +68,8 @@ of partners having direct communication at the beginning of the game). Additiona
 such as structs and arrays to represent cards and hands. As a natural consequence of dealing with these data structures,
 there will be a lot of memory handling and allocation involved. 
 
+We will also use semaphores to control the changes within the desk so that no player can get the same card as the same time.
+
 Data structures:
 - Each card will be related to an integer value, which will correspond to an index in an array of structs which contain
      each card. These structs will contain attributes for the card name and type.
@@ -179,8 +181,7 @@ Shafali:
     - Checking if crab call was correct/incorrect and handling it
 
 Michelle: 
-    - Networking and client file
-    - Team assignments
+    - Team assignments / Initial networking
     - Client-to-client interaction at the beginning of the game
     - Switching sides once each player on a side has transmitted their secret signals
     - Implement the game-over sequence
