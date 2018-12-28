@@ -5,41 +5,76 @@ PROJECT “Why So Crabby?”
 ========================
 |      DESCRIPTION     |
 ========================
-Our project is based on the card game, You’ve Got Crabs. Players break up into groups of two and try to win as many crabs as possible. 
+Our project is based on the card game, You’ve Got Crabs. Players break up into groups of two and try to win as many 
+crabs as possible. 
 
-To start, the team must meet together and decide on a secret signal which will indicate when a person has ‘crabs.’ In the real-life game, the signal can be touching your nose or itching your eyebrow. In our version, it will be a secret phrase/codeword that only the two members have access to. Each player then gets four cards and the objective (to get ‘crabs’) is to have four of a kind. 
+To start, the team must meet together and decide on a secret signal which will indicate when a person has ‘crabs.’ In
+the real-life game, the signal can be touching your nose or itching your eyebrow. In our version, it will be a secret
+phrase/codeword that only the two members have access to. Each player then gets four cards and the objective 
+(to get ‘crabs’) is to have four of a kind. 
 
-The teammates must sit across from each other, forming two different sides. At any given time, only one side can play (therefore only one of the players can be active). Meanwhile, the other side will be watching to see if the signal is given. There will be four cards on the table. For the active side, the player will have the opportunity to switch any card on the table with any card in their hand so that they can try and get four of a kind. They can make as many switches as possible and when they are done, they place their hand down and the other side goes. If no switches are made on both sides, then the four cards on the table are thrown back in the deck, and four new cards are drawn.
+The teammates must sit across from each other, forming two different sides. At any given time, only one side can play 
+(therefore only one of the players can be active). Meanwhile, the other side will be watching to see if the signal is 
+given. There will be four cards on the table. For the active side, the player will have the opportunity to switch any 
+card on the table with any card in their hand so that they can try and get four of a kind. They can make as many switches
+as possible and when they are done, they place their hand down and the other side goes. If no switches are made on both
+sides, then the four cards on the table are thrown back in the deck, and four new cards are drawn.
 
-If a person has four of a kind, they will secretly signal their teammate. If the teammate sees the signal, they will call out “You’ve got crabs!” and the team will be awarded a crab (point). If an opposing teammate sees the signal (having correctly guesses what it is), that team will win the point instead. If “You’ve got crabs!” is prematurely called out, meaning that the person does not have a four of a kind, that team will lose a crab (point).
+If a person has four of a kind, they will secretly signal their teammate. If the teammate sees the signal, they will call
+out “You’ve got crabs!” and the team will be awarded a crab (point). If an opposing teammate sees the signal (having 
+correctly guesses what it is), that team will win the point instead. If “You’ve got crabs!” is prematurely called out, 
+meaning that the person does not have a four of a kind, that team will lose a crab (point).
 
-After the point is awarded, the player gets four new cards from the deck. The game continues until there are no more crabs to be given out.
+After the point is awarded, the player gets four new cards from the deck. The game continues until there are no more crabs
+to be given out.
 
-Players’ signals are determined at the beginning of the game and are private between two partners. A signal is a short message, typically a word. To be strategic, partners should decide on a type of word rather than a word itself to be their signal. 
+Players’ signals are determined at the beginning of the game and are private between two partners. A signal is a short 
+message, typically a word. To be strategic, partners should decide on a type of word rather than a word itself to be their 
+signal. 
 
-For example, partners could agree that their signal is a red object. When one partner has achieved crabs, they might transmit words like “tomato”, “rose”, “apple”, and “heart”. To trick opponents, a partner could bluff by signaling “blueberry” when they do not have crabs (which seems like it could fit into the “tomato”/”apple” pattern without more information).
+For example, partners could agree that their signal is a red object. When one partner has achieved crabs, they might transmit
+words like “tomato”, “rose”, “apple”, and “heart”. To trick opponents, a partner could bluff by signaling “blueberry” when 
+they do not have crabs (which seems like it could fit into the “tomato”/”apple” pattern without more information).
 
 ========================
 |    USER INTERFACE    |
 ========================
-Our game will have a main server and an even number of clients that will connect to the server. The main server will not be a player, but rather will facilitate the interactions between the players. There will be one initial client-to-client interactions to set up the secret signal, but then it will be cut off.
+Our game will have a main server and an even number of clients that will connect to the server. The main server will not be 
+a player, but rather will facilitate the interactions between the players. There will be one initial client-to-client 
+interactions to set up the secret signal, but then it will be cut off.
 
-The interface will display the four cards that players can switch with, most likely in the form of an array. It will then update whenever someone takes a card. 
+The interface will display the four cards that players can switch with, most likely in the form of an array. It will then 
+update whenever someone takes a card. 
 
-The players will first be split up into teams and come up with a secret signal that indicates if they have crabs or not. The players are then handed 4 random cards, in the form an array, and they will start swapping cards from the deck until they get four of a kind. Once they do, they will send their secret signal to the server, which will manifest in the form of a text file with the secret signal. The teammate, or their opponents, have to decide if that person has crabs based on their reading of the file and make a request to the server (the equivalent of saying “You’ve got crabs!”. The server checks if the person actually has crabs and then either adds a point (if the person calls it correctly) or subtracts a point (if it’s not crabs). Once everybody is done switching cards, the players will send a message to the server and then the game switches sides. The game repeats for the other side. Once they are done, and there are no more points/crabs to give out,  the teams’ points are counted and a winner is declared. 
+The players will first be split up into teams and come up with a secret signal that indicates if they have crabs or not. The 
+players are then handed 4 random cards, in the form an array, and they will start swapping cards from the deck until they get 
+four of a kind. Once they do, they will send their secret signal to the server, which will manifest in the form of a text file 
+with the secret signal. The teammate, or their opponents, have to decide if that person has crabs based on their reading of
+the file and make a request to the server (the equivalent of saying “You’ve got crabs!”. The server checks if the person 
+actually has crabs and then either adds a point (if the person calls it correctly) or subtracts a point (if it’s not crabs). 
+Once everybody is done switching cards, the players will send a message to the server and then the game switches sides. The 
+game repeats for the other side. Once they are done, and there are no more points/crabs to give out,  the teams’ points are 
+counted and a winner is declared. 
 
-Additionally, the server will keep track and see if any switches are made. If two consecutive turns are made, and no switches have been made, then the server will discard the four cards on the table/terminal and place four new ones. 
+Additionally, the server will keep track and see if any switches are made. If two consecutive turns are made, and no 
+switches have been made, then the server will discard the four cards on the table/terminal and place four new ones. 
 
 
 ========================
 |   TECHNICAL DESIGN   |
 ========================
-We plan to use network connections to allow players to communicate with both the server and each other (with each pair of partners having direct communication at the beginning of the game). Additionally, we will be using C data structures such as structs and arrays to represent cards and hands. As a natural consequence of dealing with these data structures, there will be a lot of memory handling and allocation involved. 
+We plan to use network connections to allow players to communicate with both the server and each other (with each pair 
+of partners having direct communication at the beginning of the game). Additionally, we will be using C data structures
+such as structs and arrays to represent cards and hands. As a natural consequence of dealing with these data structures,
+there will be a lot of memory handling and allocation involved. 
 
 Data structures:
-- Each card will be related to an integer value, which will correspond to an index in an array of structs which contain each card. These structs will contain attributes for the card name and type.
-- Each player’s hand will be represented by an array of integers. The cards on the table will also be represented by an array. (When swapping these cards, users will refer to their indices.) The deck of cards will be stored in a stack, represented by an array. 
-- Each player will be represented by a struct, with attributes for their username, their partner, the array that stores their hand, and whether or not they currently have crabs.
+- Each card will be related to an integer value, which will correspond to an index in an array of structs which contain
+     each card. These structs will contain attributes for the card name and type.
+- Each player’s hand will be represented by an array of integers. The cards on the table will also be represented by an array.
+     (When swapping these cards, users will refer to their indices.) The deck of cards will be stored in a stack, represented by an array. 
+- Each player will be represented by a struct, with attributes for their username, their partner, the array that stores 
+     their hand, and whether or not they currently have crabs.
 
 Algorithms: Random deck shuffling, network communication (handshake)
 
@@ -123,8 +158,10 @@ Your points: 0
     - Allow players to swap cards from their hand with cards on the table
     - Check if a hand is crabs or not 
     - Keeping track of points (crabs)
-    - Allow players to send a signal to signify they are done trading - this signal should communicate to their partner whether they have achieved crabs or not, while the other players have to guess
-    - Handle signals for when players call crabs and handling every case - ex. If partner is correct; if opponent is correct; if partner is incorrect; if opponent is incorrect
+    - Allow players to send a signal to signify they are done trading - this signal should communicate 
+         to their partner whether they have achieved crabs or not, while the other players have to guess
+    - Handle signals for when players call crabs and handling every case - ex. If partner is correct; if opponent is correct;
+         if partner is incorrect; if opponent is incorrect
     - Detect when players have stopped switching their hands, then switch the sides playing
     - Implement players drawing new cards from the deck (one player proposes to switch, and each other player has to agree)
     - Implement the game-over sequence, i.e. counting crabs and declaring the winning team
@@ -150,13 +187,15 @@ Michelle:
 
 Ela: 
     - Creating deck functionality and randomization
-    - Creating the shell-like terminal based user interface and implementing the command-typing system to allow players to perform actions (switch cards, call crabs, etc.)
+    - Creating the shell-like terminal based user interface and implementing the command-typing system 
+         to allow players to perform actions (switch cards, call crabs, etc.)
     - Swapping cards from hand to table
 
 Maia:
     - Server file
     - Creating and maintaining server connection with clients (including updating whenever a card is switched)
-    - Allowing players to send secret signal when they are done swapping, and other players to read the signal when it is transmitted
+    - Allowing players to send secret signal when they are done swapping, and other players to read the signal
+          when it is transmitted
 
 ========================
 |      TIMELINE        |
