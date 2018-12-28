@@ -65,7 +65,7 @@ CetaceanConnie types in the terminal: crabs 2 (calling crabs to team 2, which Cr
 
 If CetaceanConnie was right, their team gets a crab; otherwise, team 2 gets a crab and CetaceanConnie’s team loses a crab.
 
-EXAMPLE OF OUR MVP:
+EXAMPLE OF OUR MVP: [ ALSO LOOK AT DESIGN_PIC FOR A MUCH PRETTIER IMAGE ]
 ==========================================================================
 
 // Assuming your secret signal is "cookie" and your TEAM #0
