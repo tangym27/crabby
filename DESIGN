@@ -1,6 +1,10 @@
 Project02: Maia Brydon, Ela Gulsen, Shafali Gupta, Michelle Tang
 
-Description of “Why So Crabby?”:
+PROJECT “Why So Crabby?”
+
+========================
+|      DESCRIPTION     |
+========================
 Our project is based on the card game, You’ve Got Crabs. Players break up into groups of two and try to win as many crabs as possible. 
 
 To start, the team must meet together and decide on a secret signal which will indicate when a person has ‘crabs.’ In the real-life game, the signal can be touching your nose or itching your eyebrow. In our version, it will be a secret phrase/codeword that only the two members have access to. Each player then gets four cards and the objective (to get ‘crabs’) is to have four of a kind. 
@@ -15,8 +19,9 @@ Players’ signals are determined at the beginning of the game and are private b
 
 For example, partners could agree that their signal is a red object. When one partner has achieved crabs, they might transmit words like “tomato”, “rose”, “apple”, and “heart”. To trick opponents, a partner could bluff by signaling “blueberry” when they do not have crabs (which seems like it could fit into the “tomato”/”apple” pattern without more information).
 
-User Interface: 
-
+========================
+|    USER INTERFACE    |
+========================
 Our game will have a main server and an even number of clients that will connect to the server. The main server will not be a player, but rather will facilitate the interactions between the players. There will be one initial client-to-client interactions to set up the secret signal, but then it will be cut off.
 
 The interface will display the four cards that players can switch with, most likely in the form of an array. It will then update whenever someone takes a card. 
@@ -26,94 +31,151 @@ The players will first be split up into teams and come up with a secret signal t
 Additionally, the server will keep track and see if any switches are made. If two consecutive turns are made, and no switches have been made, then the server will discard the four cards on the table/terminal and place four new ones. 
 
 
-Technical design:
+========================
+|   TECHNICAL DESIGN   |
+========================
 We plan to use network connections to allow players to communicate with both the server and each other (with each pair of partners having direct communication at the beginning of the game). Additionally, we will be using C data structures such as structs and arrays to represent cards and hands. As a natural consequence of dealing with these data structures, there will be a lot of memory handling and allocation involved. 
 
 Data structures:
-Each card will be related to an integer value, which will correspond to an index in an array of structs which contain each card. These structs will contain attributes for the card name and type.
-Each player’s hand will be represented by an array of integers. The cards on the table will also be represented by an array. (When swapping these cards, users will refer to their indices.) The deck of cards will be stored in a stack, represented by an array. 
-Each player will be represented by a struct, with attributes for their username, their partner, the array that stores their hand, and whether or not they currently have crabs.
+- Each card will be related to an integer value, which will correspond to an index in an array of structs which contain each card. These structs will contain attributes for the card name and type.
+- Each player’s hand will be represented by an array of integers. The cards on the table will also be represented by an array. (When swapping these cards, users will refer to their indices.) The deck of cards will be stored in a stack, represented by an array. 
+- Each player will be represented by a struct, with attributes for their username, their partner, the array that stores their hand, and whether or not they currently have crabs.
 
 Algorithms: Random deck shuffling, network communication (handshake)
 
-Example of a possible card:
+========================
+|       EXAMPLES       |
+========================
+
+EXAMPLE OF A POSSIBLE CARD:
 Index: 7
 Name: “Jab Crab”
 Color: 4 (Corresponds to black)
 
-Example of a player’s data:
+EXAMPLE OF OUR PLAYER'S DATA:
 Username: “CrabMan1947”
 Partner: “LobsterLady2004”
 Hand: [2, 4, 8, 14] (Each corresponds to a card)
 Crabs: 0
 Team Number: 2 (Used when another team calls crabs)
 
-Example of gameplay:
+EXAMPLE OF OUR GAMEPLAY:
 CrabMan1947’s signal: blueberry
 CetaceanConnie types in the terminal: crabs 2 (calling crabs to team 2, which CrabMan1947 is a part of)
 
 If CetaceanConnie was right, their team gets a crab; otherwise, team 2 gets a crab and CetaceanConnie’s team loses a crab.
 
-Project Breakdown: 
-- Create the structs for each type of card
-- Implement deck functionality, including randomizing the deck and drawing cards through a stack
-- Create the connection between the server and each client 
-- Create team assignments 
-- Create the structs storing player data 
-- Allow teams to privately communicate their signals before the game begins - client-client transmission
-- Creating the terminal user interface (which will include displaying the current cards on the table and a user’s own hand)
-- Allow players to swap cards from their hand with cards on the table
-- Check if a hand is crabs or not 
-- Keeping track of points (crabs)
-- Allow players to send a signal to signify they are done trading - this signal should communicate to their partner whether they have achieved crabs or not, while the other players have to guess
-- Handle signals for when players call crabs and handling every case - ex. If partner is correct; if opponent is correct; if partner is incorrect; if opponent is incorrect
-- Detect when players have stopped switching their hands, then switch the sides playing
-- Implement players drawing new cards from the deck (one player proposes to switch, and each other player has to agree)
-- Implement the game-over sequence, i.e. counting crabs and declaring the winning team
-- ASCII art (extra)
+EXAMPLE OF OUR MVP:
+==========================================================================
 
-Distribution of Work:
+// Assuming your secret signal is "cookie" and your TEAM #0
+-------------------
+|  table          |
+| "a" "b" "c" "d" |
+|                 |
+-------------------
+
+YOUR HAND: ["f" "t" "y" "d"]
+$ switch 2 3  // switching the index of the card in your hand w/ table
+
+--------------------
+|  table            |
+|  "a" "b" "c" "y"  |
+|                   |
+--------------------|
+
+YOUR HAND: ["f" "t" "d" "d"]
+$ message "apple" // write to file owned by a server. Other opponents might think its a secret signal
+ 
+TEAMMATE TWO:
+$ read
+"apple" // what your person writes
+"boots" // what other teammates write
+"fur" // what other teammates write
+
+/* --after a few rounds-- */
+$ read
+"fun" // what other teammates write
+"friends" // what other teammates write
+"cookie" // what your person writes. omg. is that the signal??!??
+$ crab 0 // calls out crab for your team #
+
+CONGRATS YOU'VE GOT CRABS!
+Your points: 1
+
+// but let's say you thought another team had crabs and they didn't
+$ crab 1 // calls our crab for team #1
+
+OH NO! THEY DON'T HAVE CRABS
+Your points: 0
+==========================================================================
+
+========================
+|  PROJECT BREAKDOWN   |
+========================  
+    - Create the structs for each type of card
+    - Implement deck functionality, including randomizing the deck and drawing cards through a stack
+    - Create the connection between the server and each client 
+    - Create team assignments 
+    - Create the structs storing player data 
+    - Allow teams to privately communicate their signals before the game begins - client-client transmission
+    - Creating the terminal user interface (which will include displaying the current cards on the table and a user’s own hand)
+    - Allow players to swap cards from their hand with cards on the table
+    - Check if a hand is crabs or not 
+    - Keeping track of points (crabs)
+    - Allow players to send a signal to signify they are done trading - this signal should communicate to their partner whether they have achieved crabs or not, while the other players have to guess
+    - Handle signals for when players call crabs and handling every case - ex. If partner is correct; if opponent is correct; if partner is incorrect; if opponent is incorrect
+    - Detect when players have stopped switching their hands, then switch the sides playing
+    - Implement players drawing new cards from the deck (one player proposes to switch, and each other player has to agree)
+    - Implement the game-over sequence, i.e. counting crabs and declaring the winning team
+    - ASCII art (extra)
+
+========================
+| DISTRIBUTION OF WORK |
+========================
 
 Shafali: 
-- Creating baseline data structures for players and cards
-- Keeping track of crabs
-- Implement players drawing new cards from the deck
-- Calling crabs functionality
-- Checking if crab call was correct/incorrect and handling it
+    - Creating baseline data structures for players and cards
+    - Keeping track of crabs
+    - Implement players drawing new cards from the deck
+    - Calling crabs functionality
+    - Checking if crab call was correct/incorrect and handling it
 
 Michelle: 
-- Networking and client file
-- Team assignments
-- Client-to-client interaction at the beginning of the game
-- Switching sides once each player on a side has transmitted their secret signals
-- Implement the game-over sequence
+    - Networking and client file
+    - Team assignments
+    - Client-to-client interaction at the beginning of the game
+    - Switching sides once each player on a side has transmitted their secret signals
+    - Implement the game-over sequence
 
 Ela: 
-- Creating deck functionality and randomization
-- Creating the shell-like terminal based user interface and implementing the command-typing system to allow players to perform actions (switch cards, call crabs, etc.)
-- Swapping cards from hand to table
+    - Creating deck functionality and randomization
+    - Creating the shell-like terminal based user interface and implementing the command-typing system to allow players to perform actions (switch cards, call crabs, etc.)
+    - Swapping cards from hand to table
 
 Maia:
-- Server file
-- Creating and maintaining server connection with clients (including updating whenever a card is switched)
-- Allowing players to send secret signal when they are done swapping, and other players to read the signal when it is transmitted
+    - Server file
+    - Creating and maintaining server connection with clients (including updating whenever a card is switched)
+    - Allowing players to send secret signal when they are done swapping, and other players to read the signal when it is transmitted
 
+========================
+|      TIMELINE        |
+========================
 
-Timeline:  (assuming 1/20 is deadline)
-1/08 
-Create the baseline structures and deck functionality
-Establish signals between partners 
-Point system 
-Team assignments 
-1/13 
-Connection between clients and server 
-Connection between two partners and deciding the secret signal
-Core gameplay (switching cards)
-Sending secret signals
-Checking if players have crabs or not
-Switching sides 
-1/18 
-Collecting points 
-End-game and deciding winners
-Debugging 
-ASCII art and making the interface look pretty
+1/08 :
+    Create the baseline structures and deck functionality
+    Establish signals between partners 
+    Point system 
+    Team assignments 
+1/13 :
+    Connection between clients and server 
+    Connection between two partners and deciding the secret signal
+    Core gameplay (switching cards)
+    Sending secret signals
+    Checking if players have crabs or not
+    Switching sides 
+1/18 :
+    Collecting points 
+    End-game and deciding winners
+    Debugging 
+    ASCII art and making the interface look pretty
