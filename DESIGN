@@ -11,7 +11,7 @@ crabs as possible.
 To start, the team must meet together and decide on a secret signal which will indicate when a person has ‘crabs.’ In
 the real-life game, the signal can be touching your nose or itching your eyebrow. In our version, it will be a secret
 phrase/codeword that only the two members have access to. Each player then gets four cards and the objective 
-(to get ‘crabs’) is to have four of a kind. 
+(to get ‘crabs’) is to have four of a kind (which is four of the same color - the game is played with a non-traditional deck). 
 
 The teammates must sit across from each other, forming two different sides. At any given time, only one side can play 
 (therefore only one of the players can be active). Meanwhile, the other side will be watching to see if the signal is 
@@ -195,8 +195,8 @@ Ela:
 Maia:
     - Server file
     - Creating and maintaining server connection with clients (including updating whenever a card is switched)
-    - Allowing players to send secret signal when they are done swapping, and other players to read the signal
-          when it is transmitted
+    - Allowing players to send secret signal when they are done swapping
+    - Allowing other players to receive and read the signal when it is transmitted
 
 ========================
 |      TIMELINE        |
