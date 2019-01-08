@@ -4,11 +4,12 @@
 
 struct card { int card_index; };
 struct deck { int size; int current_deck[52]; };
+struct table { int table_cards[4]; };
 
 char * cards[13] = {"Crabrador Retriever", "Crabbi", "Jab Crab", "Taxi Crab", "Ab Crab", "Bunny Crabbit", "Shish Crabob", "Crabuccino", "King Crab", "Crabernet Sauvignon", "Low Crab Diet", "Crabaloupe", "Abracrabdabra"};
 
 struct deck * current_game;
-
+struct table * current_table;
 
 /* Creates a deck that contains 4 instances of each card, randomly scattered throughout the deck.
  * Deck is stored in struct deck * current_game.
@@ -31,7 +32,6 @@ int make_deck() {
         current_game->size++;
         rand_index = (rand() % 13);
     }
-    
     return 0;
 }
 
@@ -46,7 +46,27 @@ int draw_card() {
     return new_card;
 }
 
+/* Creates the table by drawing 4 cards from the deck. */
+int create_table() {
+    current_table = malloc(sizeof( struct table));
+    for (int i=0; i<4; i++){
+        current_table->table_cards[i] = draw_card();
+    }
+    return 0;
+}
 
+/* Prints the contents of the table. */
+int print_table() {    
+    if (current_table->table_cards) {
+        printf("Cards on the table: \n");
+        for (int i=0; i<3; i++){
+            printf("[%d] %s, ", i, cards[ current_table->table_cards[i]]);
+        }
+        printf("and [3] %s\n", cards[ current_table->table_cards[3]]);
+        return 0;
+    }
+    return -1;
+}
 /*int main() {
     printf("Hey, I'm for testing! Please remember to delete me when you're done with testing.\n");
     srand( time(NULL));
