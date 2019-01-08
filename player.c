@@ -3,6 +3,7 @@
 #include <time.h>
 #include "deck.h"
 
+
 struct team { int team_no; int points; };
 struct player { char * username; int hand[4]; int partner; struct team * p_team;};
 
@@ -23,6 +24,7 @@ int main() {
     srand( time(NULL));
 
     struct player * me = malloc( sizeof(struct player) );
+    struct player * you = malloc( sizeof(struct player) );
     make_deck();
     
     printf("THE DECK:\n");
@@ -34,4 +36,9 @@ int main() {
     if (make_hand( me) > -1) {
         for (int i= 0; i<4; i++) printf("%s\n", cards [me->hand[i]]);
     }
+    printf("\n\nYOUR TEAMMATE'S HAND:\n");
+    if (make_hand( you) > -1) {
+        for (int i=0; i<4; i++) printf("%s\n", cards [you->hand[i]]);
+    }
+    
 }
