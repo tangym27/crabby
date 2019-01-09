@@ -17,3 +17,7 @@ mt,sg,eg,mb: finished our design doc
 --1/7--
 eg: finished deck.c
 eg: worked on player.c and created make_hand
+
+--1/8--
+mb,mt: worked on client and server files
+eg: finished up player.c
