@@ -67,12 +67,3 @@ int print_table() {
     }
     return -1;
 }
-/*int main() {
-    printf("Hey, I'm for testing! Please remember to delete me when you're done with testing.\n");
-    srand( time(NULL));
-    make_deck();
-    for (int i; i<52; i++){
-        printf("%s\n", cards[ draw_card()]);
-    }
-    return 0;
-}*/
