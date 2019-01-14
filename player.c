@@ -168,7 +168,7 @@ int main(int argc, char **argv) {
 
     int my_team = form_team( my_player, my_teammate);
      teams[my_team]->p_0->is_turn = 1;
-     if (teams[my_team]->p_0->is_turn = 1){
+     if (teams[my_team]->p_0->is_turn == 1){
        teams[my_team]->p_1->is_turn = 0;
        int server_socket;
        char buffer[BUFFER_SIZE];
