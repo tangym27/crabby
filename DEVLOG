@@ -21,3 +21,13 @@ eg: worked on player.c and created make_hand
 --1/8--
 mb,mt: worked on client and server files
 eg: finished up player.c
+
+--1/9 - 1/11--
+mb,mt,sg: worked on client and server files
+eg: worked on the player console
+
+--1/13--
+sg,mt: got the client/server connection working (somewhat)
+
+--1/14--
+sg,mt,eg,mb: debugging the client/server connection
