@@ -3,13 +3,15 @@
 #include <time.h>
 #include <string.h>
 #include "deck.h"
+#include "networking.h"
+
 
 #define MAX_GAME_SIZE 6
 //max game size currently 6: change later if desired
 
 struct team { int points; struct player * p_0; struct player * p_1; };
 struct player { char * username; int hand[4]; int partner; struct team * p_team; int is_turn;};
-struct player * players[MAX_GAME_SIZE]; 
+struct player * players[MAX_GAME_SIZE];
 struct team * teams[MAX_GAME_SIZE/2];
 
 /* Given a username, creates a player and returns their player number.
@@ -37,14 +39,14 @@ int form_team( int player_no0, int player_no1) {
             teams[i] = malloc( sizeof(struct team));
             players[ player_no0]->p_team = teams[i];
             players[ player_no1]->p_team = teams[i];
-            
+
             teams[i]->points =0;
             teams[i]->p_0 = players[ player_no0];
             teams[i]->p_1 = players[ player_no1];
-            
+
             players[ player_no0]->partner = player_no1;
             players[ player_no1]->partner = player_no0;
-        
+
             return i;
         }
     }
@@ -106,25 +108,25 @@ int print_hand( int player_no) {
         printf("and [3] %s\n", cards[ plyr->hand[3]]);
         if (check_crabs(player_no)) printf("Psst! Congratulations. You've got crabs!\n");
         else printf("No crabs here. Maybe you should trade some cards?\n");
-        return 0;        
+        return 0;
     }
     return -1;
 }
 
 /* Given an int player_no, the index of the player's card to be switched, and the index of the table's card to be switched.
  * Returns -1 if no player with that player_no was found, and -2 if it is not currently the player's turn.
- * Else, returns 0. 
+ * Else, returns 0.
  */
 int swap_cards( int player_no, int player_card_index, int deck_card_index) {
-    if (! players[ player_card_index]) return -1; 
+    if (! players[ player_card_index]) return -1;
     if (! players[ player_card_index]->is_turn) return -2;
-    
+
     int deck_card = current_table->table_cards[deck_card_index];
     int player_card = players[ player_no]->hand[ player_card_index];
-    
+
     players[ player_no]->hand[player_card_index] = deck_card;
     current_table->table_cards[deck_card_index] = player_card;
-    
+
     return 0;
 }
 
@@ -135,7 +137,7 @@ int swap_cards( int player_no, int player_card_index, int deck_card_index) {
  */
 int switch_turns( int team_no) {
     if (! teams[team_no]) return -1;
-    
+
     if (teams[team_no]->p_0->is_turn) {
         teams[team_no]->p_0->is_turn = 0;
         teams[team_no]->p_1->is_turn = 1;
@@ -144,44 +146,72 @@ int switch_turns( int team_no) {
         teams[team_no]->p_0->is_turn = 1;
         teams[team_no]->p_1->is_turn = 0;
     }
-    
+
     return 0;
 }
 
-int main() {
+int main(int argc, char **argv) {
     srand( time(NULL));
 
     int my_player = create_player("crabby_laddy_2008");
     int my_teammate = create_player("X_lobster_d00d_X");
-    
+
     make_deck();
-    
+
     printf("YOUR HAND:\n");
     make_hand( my_player);
     print_hand( my_player);
-    
+
     printf("\n\nYOUR TEAMMATE'S HAND:\n");
     make_hand( my_teammate);
     print_hand( my_teammate);
-    
+
     int my_team = form_team( my_player, my_teammate);
+     teams[my_team]->p_0->is_turn = 1;
+     if (teams[my_team]->p_0->is_turn = 1){
+       teams[my_team]->p_1->is_turn = 0;
+       int server_socket;
+       char buffer[BUFFER_SIZE];
+
+       if (argc == 2)
+         server_socket = client_setup( argv[1]);
+       else
+         server_socket = client_setup( TEST_IP );
+
+       //while (1) {
+         printf("It is your turn \n");
+         printf("Would you like to send a signal? y/n\n");
+         char * response = malloc(2);
+        fgets(response, 200, stdin);
+
+        if (response[0] == 'y'){
+          printf("type your signal: ");
+         fgets(buffer, sizeof(buffer), stdin);
+         *strchr(buffer, '\n') = 0;
+         write(server_socket, buffer, sizeof(buffer));
+         read(server_socket, buffer, sizeof(buffer));
+         printf("received: [%s]\n", buffer);
+       }
+    //   }
+
+     }
 
     add_point(my_player);
     printf("\ncrabby team points: %d\n", get_points( my_player));
     add_point(my_teammate);
     printf("crabby team points: %d\n", get_points( my_teammate));
-    
-    
+
+
     create_table();
     print_table();
-    
+
     printf("\n");
     if (swap_cards(0, 1, 1) == -2) printf("Hey! It's not your turn. No switch was made.\n");
-    switch_turns( my_team);
-    
-    if (swap_cards(1, 1, 1) == -2) printf("Hey! It's not your turn. No switch was made.\n");
-        
-        
+    //switch_turns( my_team);
+
+    //if (swap_cards(1, 1, 1) == -2) printf("Hey! It's not your turn. No switch was made.\n");
+
+
     print_hand( my_player);
     printf("\n");
     print_table();
