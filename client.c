@@ -1,8 +1,10 @@
 #include "networking.h"
 
 int check_buffer(char * buffer, int size, int crab_deck[]){
-  if (strcmp(buffer, "draw") == 0)
+  if (strcmp(buffer, "draw") == 0){
+    printf("(draw happened)\n" );
     return 0;
+  }
   else if (strcmp(buffer, "print") == 0)
     return 0;
   else{
@@ -56,22 +58,24 @@ int main(int argc, char **argv) {
       fgets(buffer, sizeof(buffer), stdin);
       *strchr(buffer, '\n') = 0;
     }
+    printf("your turn has ended.\n");
 
-    // write(server_socket, buffer, sizeof(buffer));
-    //   memset(buffer, 0, BUFFER_SIZE);
-    //   read(server_socket, buffer, sizeof(buffer));
+    write(server_socket, buffer, sizeof(buffer));
+    memset(buffer, 0, BUFFER_SIZE);
+    read(server_socket, buffer, sizeof(buffer));
     //   //printf("buffer:%s\n", buffer);
     //   int id = atoi(buffer);
     // //  printf("Card name: %s\n",get_card_name(catalog, id) );
-    //   char * name = calloc(50, sizeof(char));
-    //   name = "boop";
-    //   sprintf(buffer, "Drew the %s card.\n", name);
+      char * name = calloc(50, sizeof(char));
+      name = "boop";
+      sprintf(buffer, "Drew the %s card.\n", name);
     //   //if (strcmp(name, "Exploding Kitten")){
-    //   memset(buffer, 0, BUFFER_SIZE);
-    //   strcpy(buffer, "drew");
-    //   write(server_socket, buffer, sizeof(buffer));
-    //   crab_deck[size] = id;
-    //   size++;
+      memset(buffer, 0, BUFFER_SIZE);
+     strcpy(buffer, "drew");
+      write(server_socket, buffer, sizeof(buffer));
+      printf("BUGGER: %s\n",buffer );
+      //crab_deck[size] = atoi(buffer);
+      size++;
     //  }
   }
 }

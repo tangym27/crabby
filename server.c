@@ -57,7 +57,7 @@ int main(int argc, char **argv) {
       while (turns[i]) {
         write(players[i], ACK, sizeof(ACK));
         read(players[i], buffer, sizeof(buffer));
-        if(strcmp(buffer, "end") == 0) {
+        if(strcmp(buffer, "drew") == 0) {
           // char card[50];
           // strcpy(card, draw_card(deck, &deck_size));
           // //printf("%s\n", card);
