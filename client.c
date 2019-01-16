@@ -1,8 +1,8 @@
 #include "networking.h"
 
 int check_buffer(char * buffer, int size, int crab_deck[]){
-  if (strcmp(buffer, "draw") == 0){
-    printf("(draw happened)\n" );
+  if (strcmp(buffer, "end") == 0){
+    printf("(end happened)\n" );
     return 0;
   }
   else if (strcmp(buffer, "print") == 0)
