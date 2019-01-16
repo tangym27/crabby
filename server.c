@@ -5,7 +5,8 @@ void process(char *s);
 void subserver(int from_client);
 
 int main(int argc, char **argv) {
-  int i, num_players = 0;
+  int i = 0;
+  int num_players = 0;
   int listen_socket;
   int client_socket;
   int f;
@@ -23,7 +24,6 @@ int main(int argc, char **argv) {
   // fd_set read_fds;
   int players[num_players], subservers[num_players], turns[num_players];
   listen_socket = server_setup();
-
   while (i < num_players) {
     players[i] = server_connect(listen_socket);
     turns[i] = 0;
