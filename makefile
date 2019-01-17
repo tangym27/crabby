@@ -25,10 +25,10 @@ all: client server
 server: server.o networking.o
 	gcc -g -o server server.o networking.o
 
-client: client.o networking.o
-	gcc -g -o client client.o networking.o
+client: client.o networking.o player.o deck.o
+	gcc -g -o client client.o networking.o player.o deck.o
 
-client.o: client.c player.c networking.h
+client.o: client.c player.c networking.h player.h deck.h
 	gcc -g -c client.c
 
 server.o: server.c player.c networking.h
@@ -40,8 +40,8 @@ networking.o: networking.c networking.h
 run: player
 	./player
 
-player: player.c
-	gcc -g -o player player.c
+player: player.c player.h deck.h
+	gcc -g -o player player.c deck.o
 
 clean:
 	rm *.o

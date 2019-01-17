@@ -150,69 +150,69 @@ int switch_turns( int team_no) {
     return 0;
 }
 
-int main(int argc, char **argv) {
-    srand( time(NULL));
-
-    int my_player = create_player("crabby_laddy_2008");
-    int my_teammate = create_player("X_lobster_d00d_X");
-
-    make_deck();
-
-    printf("YOUR HAND:\n");
-    make_hand( my_player);
-    print_hand( my_player);
-
-    printf("\n\nYOUR TEAMMATE'S HAND:\n");
-    make_hand( my_teammate);
-    print_hand( my_teammate);
-
-    int my_team = form_team( my_player, my_teammate);
-     teams[my_team]->p_0->is_turn = 1;
-     if (teams[my_team]->p_0->is_turn == 1){
-       teams[my_team]->p_1->is_turn = 0;
-       int server_socket;
-       char buffer[BUFFER_SIZE];
-
-       if (argc == 2)
-         server_socket = client_setup( argv[1]);
-       else
-         server_socket = client_setup( TEST_IP );
-
-       //while (1) {
-         printf("It is your turn \n");
-         printf("Would you like to send a signal? y/n\n");
-         char * response = malloc(2);
-        fgets(response, 200, stdin);
-
-        if (response[0] == 'y'){
-          printf("type your signal: ");
-         fgets(buffer, sizeof(buffer), stdin);
-         *strchr(buffer, '\n') = 0;
-         write(server_socket, buffer, sizeof(buffer));
-         read(server_socket, buffer, sizeof(buffer));
-         printf("received: [%s]\n", buffer);
-       }
-    //   }
-
-     }
-
-    add_point(my_player);
-    printf("\ncrabby team points: %d\n", get_points( my_player));
-    add_point(my_teammate);
-    printf("crabby team points: %d\n", get_points( my_teammate));
-
-
-    create_table();
-    print_table();
-
-    printf("\n");
-    if (swap_cards(0, 1, 1) == -2) printf("Hey! It's not your turn. No switch was made.\n");
-    //switch_turns( my_team);
-
-    //if (swap_cards(1, 1, 1) == -2) printf("Hey! It's not your turn. No switch was made.\n");
-
-
-    print_hand( my_player);
-    printf("\n");
-    print_table();
-}
+// int main(int argc, char **argv) {
+//     srand( time(NULL));
+// 
+//     int my_player = create_player("crabby_laddy_2008");
+//     int my_teammate = create_player("X_lobster_d00d_X");
+// 
+//     make_deck();
+// 
+//     printf("YOUR HAND:\n");
+//     make_hand( my_player);
+//     print_hand( my_player);
+// 
+//     printf("\n\nYOUR TEAMMATE'S HAND:\n");
+//     make_hand( my_teammate);
+//     print_hand( my_teammate);
+// 
+//     int my_team = form_team( my_player, my_teammate);
+//      teams[my_team]->p_0->is_turn = 1;
+//      if (teams[my_team]->p_0->is_turn == 1){
+//        teams[my_team]->p_1->is_turn = 0;
+//        int server_socket;
+//        char buffer[BUFFER_SIZE];
+// 
+//        if (argc == 2)
+//          server_socket = client_setup( argv[1]);
+//        else
+//          server_socket = client_setup( TEST_IP );
+// 
+//        //while (1) {
+//          printf("It is your turn \n");
+//          printf("Would you like to send a signal? y/n\n");
+//          char * response = malloc(2);
+//         fgets(response, 200, stdin);
+// 
+//         if (response[0] == 'y'){
+//           printf("type your signal: ");
+//          fgets(buffer, sizeof(buffer), stdin);
+//          *strchr(buffer, '\n') = 0;
+//          write(server_socket, buffer, sizeof(buffer));
+//          read(server_socket, buffer, sizeof(buffer));
+//          printf("received: [%s]\n", buffer);
+//        }
+//     //   }
+// 
+//      }
+// 
+//     add_point(my_player);
+//     printf("\ncrabby team points: %d\n", get_points( my_player));
+//     add_point(my_teammate);
+//     printf("crabby team points: %d\n", get_points( my_teammate));
+// 
+// 
+//     create_table();
+//     print_table();
+// 
+//     printf("\n");
+//     if (swap_cards(0, 1, 1) == -2) printf("Hey! It's not your turn. No switch was made.\n");
+//     //switch_turns( my_team);
+// 
+//     //if (swap_cards(1, 1, 1) == -2) printf("Hey! It's not your turn. No switch was made.\n");
+// 
+// 
+//     print_hand( my_player);
+//     printf("\n");
+//     print_table();
+// }
