@@ -1,6 +1,7 @@
 #include "networking.h"
 #include "player.h"
 #include "deck.h"
+#include <stdio.h>
 
 int check_buffer(char * buffer, int size, int crab_deck[]){
   if (strcmp(buffer, "end") == 0){
@@ -73,18 +74,22 @@ int main(int argc, char **argv) {
     if (swap_cards(0, 1, 1) == -2) printf("Hey! It's not your turn. No switch was made.\n");
 
     //while the player didn't say they wanted to end their turn
-	printf("check"); 
+    //	printf("check"); 
       while(check_buffer(buffer, size, crab_deck)){
       printf("Would you like to switch any cards? y/n \n");
-      char * switch_res = malloc(256);
-      fgets(switch_res, 200, stdin);
-      if (response[0] == 'y'){
+      int * switch_res = malloc(256);
+      //fgets(switch_res, 200, stdin);
+       scanf("%d",switch_res) 
+
+      if (switch_res[0] == 'y'){
         printf("which cards would you like to switch? Type the card number from your hand\n");
-        char * hand_res= malloc(256);
-        fgets(hand_res, 200, stdin);
-        printf("Type the card number from the deck\n");
-        char * deck_res = malloc(256);
-        fgets(deck_res, 200, stdin);
+        int * hand_res= malloc(256);
+        //fgets(hand_res, 200, stdin);
+	scanf("%d",hand_res); 
+	printf("Type the card number from the deck\n");
+        int * deck_res = malloc(256);
+	scanf("%d",deck_res); 
+
         swap_cards(buffer,hand_res, deck_res); 
      printf("enter data: ");
       fgets(buffer, sizeof(buffer), stdin);

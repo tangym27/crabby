@@ -10,7 +10,7 @@
 //max game size currently 6: change later if desired
 
 struct team { int points; struct player * p_0; struct player * p_1; };
-struct player { char * username; int hand[4]; int partner; struct team * p_team; int is_turn;};
+struct player {int p_num;  char * username; int hand[4]; int partner; struct team * p_team; int is_turn;};
 struct player * players[MAX_GAME_SIZE];
 struct team * teams[MAX_GAME_SIZE/2];
 
@@ -23,6 +23,7 @@ int create_player(char * usrname) {
             players[i] = malloc( sizeof(struct player));
             players[i]->username = usrname;
             players[i]->is_turn = 0;
+	    players[i]->p_num= i; 
             return i;
         }
     }
