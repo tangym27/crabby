@@ -54,8 +54,8 @@ int main(int argc, char **argv) {
     while (read(server_socket, buffer, sizeof(buffer))) {
       if (strcmp(buffer, ACK)) {
         printf("You are player \033[0;31m#%d\x1b[0m!\n", atoi(buffer));
-    }
-      else break;
+        break;
+      }
     }
 
     printf("What would you like your \033[0;31musername\x1b[0m to be? ");
@@ -64,9 +64,9 @@ int main(int argc, char **argv) {
     int my_player = create_player(response);
     make_deck();
 
-    printf("Welcome, crab! Here are your teammates.\n");
+    printf("Welcome, crab! Here are your teammates.\n\n");
     
-    printf("YOUR HAND:\n");
+    printf("It is currently your turn. Here is your hand: \n\n");
     make_hand( my_player);
     print_hand( my_player);
 
