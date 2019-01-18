@@ -56,6 +56,7 @@ int main(int argc, char **argv) {
     while (read(server_socket, buffer, sizeof(buffer))) {
       if (strcmp(buffer, ACK)) {
         printf("You are player \033[0;31m#%d\x1b[0m!\n", atoi(buffer));
+<<<<<<< HEAD
         // printf("atoi(buffer)%d\n", atoi(buffer) );
         if(atoi(buffer) < 2) {
           printf("You are on TEAM \033[0;31m#0\x1b[0m!\n");
@@ -65,6 +66,10 @@ int main(int argc, char **argv) {
         }
     }
       else break;
+=======
+        break;
+      }
+>>>>>>> 445533c0d9f414eafbef909afbb94bc637d7434d
     }
 
     printf("What would you like your \033[0;31musername\x1b[0m to be? ");
@@ -73,9 +78,15 @@ int main(int argc, char **argv) {
     int my_player = create_player(response);
     make_deck();
 
+<<<<<<< HEAD
     printf("Welcome, crab! Here are your teammates.\n");
 
     printf("YOUR HAND:\n");
+=======
+    printf("Welcome, crab! Here are your teammates.\n\n");
+    
+    printf("It is currently your turn. Here is your hand: \n\n");
+>>>>>>> 445533c0d9f414eafbef909afbb94bc637d7434d
     make_hand( my_player);
     print_hand( my_player);
 
