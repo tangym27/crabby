@@ -15,6 +15,7 @@ struct table * current_table;
  * Deck is stored in struct deck * current_game.
  */
 int make_deck() {
+    srand( time( NULL));
     int rand_index = (rand() % 13);
     current_game = malloc( sizeof(struct deck));
     current_game->size = 0;
