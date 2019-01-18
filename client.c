@@ -26,6 +26,10 @@ int check_buffer(char * buffer, int size, int crab_deck[]){
 }
 
 int main(int argc, char **argv) {
+  printf("\e[1;1H\e[2J\n\n");
+  printf("Welcome to 'Why So \033[0;31mCrabby\x1b[0m?':\nA \033[0;31mcrabtastic\x1b[0m game by Maia Brydon, Ela Gulsen, Shafali Gupta, and Michelle Tang!\n");
+  printf("\n\nCurrently \033[0;31mwaiting for players.\x1b[0m Be patient!\n");
+    
   int size = 1000;
   int crab_deck[51];
   int server_socket;
@@ -47,20 +51,21 @@ int main(int argc, char **argv) {
  // }
 
  while (1) {
-    printf("It is not your turn yet.\n");
     while (read(server_socket, buffer, sizeof(buffer))) {
       if (strcmp(buffer, ACK)) {
-        printf("You are player #%d!\n", atoi(buffer));
+        printf("You are player \033[0;31m#%d\x1b[0m!\n", atoi(buffer));
     }
       else break;
     }
 
-    printf("What would you like your username to be? ");
+    printf("What would you like your \033[0;31musername\x1b[0m to be? ");
     char * response = malloc(256);
     scanf("%s",response); 
     int my_player = create_player(response);
     make_deck();
 
+    printf("Welcome, crab! Here are your teammates.\n");
+    
     printf("YOUR HAND:\n");
     make_hand( my_player);
     print_hand( my_player);
@@ -69,8 +74,7 @@ int main(int argc, char **argv) {
     print_table();
 
     printf("\n");
-    if (swap_cards(0, 1, 1) == -2) printf("Hey! It's not your turn. No switch was made.\n");
-
+    
     //while the player didn't say they wanted to end their turn
     //	printf("check"); 
       while(check_buffer(buffer, size, crab_deck)){

@@ -1,10 +1,15 @@
 // 149.89.150.1(computer number only two digits)
+#include <stdlib.h>
+#include <stdio.h>
 #include "networking.h"
 
 void process(char *s);
 void subserver(int from_client);
 
 int main(int argc, char **argv) {
+  printf("\e[1;1H\e[2J\n\n");
+  printf("Welcome to 'Why So \033[0;31mCrabby\x1b[0m?':\nA \033[0;31mcrabtastic\x1b[0m game by Maia Brydon, Ela Gulsen, Shafali Gupta, and Michelle Tang!\n");
+  printf("\n\nCurrently \033[0;31mwaiting for players.\x1b[0m Be patient!\n");
   int i = 0;
   int num_players = 0;
   int listen_socket;
@@ -26,6 +31,7 @@ int main(int argc, char **argv) {
   listen_socket = server_setup();
   while (i < num_players) {
     players[i] = server_connect(listen_socket);
+    printf("\nA new player has joined!\n");
     turns[i] = 0;
     subservers[i] = fork();
     if (!subservers[i]) {
@@ -35,6 +41,7 @@ int main(int argc, char **argv) {
     i++;
   }
   shutdown(listen_socket, SHUT_RD);
+  printf("\n\nGame is starting! The action will take place in the clients' side. Buckle up!\n");
 //  char buffer[BUFFER_SIZE];
 
   for (i = 0; i < num_players; i++) {
