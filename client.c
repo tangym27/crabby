@@ -29,11 +29,13 @@ int main(int argc, char **argv) {
   printf("\e[1;1H\e[2J\n\n");
   printf("Welcome to 'Why So \033[0;31mCrabby\x1b[0m?':\nA \033[0;31mcrabtastic\x1b[0m game by Maia Brydon, Ela Gulsen, Shafali Gupta, and Michelle Tang!\n");
   printf("\n\nCurrently \033[0;31mwaiting for players.\x1b[0m Be patient!\n");
-    
+
   int size = 1000;
   int crab_deck[51];
   int server_socket;
   char buffer[BUFFER_SIZE];
+  //char ** catalog = create_catalog(&cat_size);
+
 
   if (argc == 2)
     server_socket = client_setup( argv[1]);
@@ -54,18 +56,25 @@ int main(int argc, char **argv) {
     while (read(server_socket, buffer, sizeof(buffer))) {
       if (strcmp(buffer, ACK)) {
         printf("You are player \033[0;31m#%d\x1b[0m!\n", atoi(buffer));
+        // printf("atoi(buffer)%d\n", atoi(buffer) );
+        if(atoi(buffer) < 2) {
+          printf("You are on TEAM \033[0;31m#0\x1b[0m!\n");
+        }
+        else{
+          printf("You are on TEAM \033[0;31m#1\x1b[0m!\n");
+        }
     }
       else break;
     }
 
     printf("What would you like your \033[0;31musername\x1b[0m to be? ");
     char * response = malloc(256);
-    scanf("%s",response); 
+    scanf("%s",response);
     int my_player = create_player(response);
     make_deck();
 
     printf("Welcome, crab! Here are your teammates.\n");
-    
+
     printf("YOUR HAND:\n");
     make_hand( my_player);
     print_hand( my_player);
@@ -74,24 +83,24 @@ int main(int argc, char **argv) {
     print_table();
 
     printf("\n");
-    
+
     //while the player didn't say they wanted to end their turn
-    //	printf("check"); 
+    //	printf("check");
       while(check_buffer(buffer, size, crab_deck)){
       printf("Would you like to switch any cards? [y/n] ");
       int * switch_res = malloc(256);
-       scanf("%s",switch_res); 
+       scanf("%s",switch_res);
 
       if (switch_res[0] == 'y'){
         printf("which cards would you like to switch? Type the card number from your hand: ");
         int * hand_res= malloc(256);
         //fgets(hand_res, 200, stdin);
-	scanf("%d",hand_res); 
+	scanf("%d",hand_res);
 	printf("Type the card number from the deck: ");
         int * deck_res = malloc(256);
-	scanf("%d",deck_res); 
+	scanf("%d",deck_res);
 
-     swap_cards(atoi(buffer), *hand_res, *deck_res); 
+     swap_cards(atoi(buffer), *hand_res, *deck_res);
       //*strchr(buffer, '\n') = 0;
       }
     }
