@@ -36,7 +36,6 @@ int main(int argc, char **argv) {
   else
     server_socket = client_setup( TEST_IP );
 
-  printf("Still missing people. MICHELLE THIS WILL NOT START.\n");
   read(server_socket, buffer, sizeof(buffer));
  //  crab_deck[size++] = 1;
  //  char * cards = calloc(250, sizeof(char));
@@ -47,19 +46,18 @@ int main(int argc, char **argv) {
  //    crab_deck[size++] = atoi(tmp);
  // }
 
-  printf("\n\nGAME HAS STARTED SHOULD HAVE ENOUGH CLIENTS MICHELLE GET IT TOGETHER!\n\n");
-  while (1) {
+ while (1) {
     printf("It is not your turn yet.\n");
     while (read(server_socket, buffer, sizeof(buffer))) {
       if (strcmp(buffer, ACK)) {
-        printf("received: [%s]\n", buffer);
-      }
+        printf("You are player #%d!\n", atoi(buffer));
+    }
       else break;
     }
 
-    printf("What would you like your username to be?\n");
+    printf("What would you like your username to be? ");
     char * response = malloc(256);
-    fgets(response, 200, stdin);
+    scanf("%s",response); 
     int my_player = create_player(response);
     make_deck();
 
@@ -76,23 +74,20 @@ int main(int argc, char **argv) {
     //while the player didn't say they wanted to end their turn
     //	printf("check"); 
       while(check_buffer(buffer, size, crab_deck)){
-      printf("Would you like to switch any cards? y/n \n");
+      printf("Would you like to switch any cards? [y/n] ");
       int * switch_res = malloc(256);
-      //fgets(switch_res, 200, stdin);
-       scanf("%d",switch_res) 
+       scanf("%s",switch_res); 
 
       if (switch_res[0] == 'y'){
-        printf("which cards would you like to switch? Type the card number from your hand\n");
+        printf("which cards would you like to switch? Type the card number from your hand: ");
         int * hand_res= malloc(256);
         //fgets(hand_res, 200, stdin);
 	scanf("%d",hand_res); 
-	printf("Type the card number from the deck\n");
+	printf("Type the card number from the deck: ");
         int * deck_res = malloc(256);
 	scanf("%d",deck_res); 
 
-        swap_cards(buffer,hand_res, deck_res); 
-     printf("enter data: ");
-      fgets(buffer, sizeof(buffer), stdin);
+     swap_cards(atoi(buffer), *hand_res, *deck_res); 
       //*strchr(buffer, '\n') = 0;
       }
     }

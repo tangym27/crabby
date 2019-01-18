@@ -34,24 +34,19 @@ int main(int argc, char **argv) {
     }
     i++;
   }
-  printf("SERVER IS DONE LET IT GO MICHELLE.\n");
   shutdown(listen_socket, SHUT_RD);
 //  char buffer[BUFFER_SIZE];
 
   for (i = 0; i < num_players; i++) {
   //  fflush(stdo);
-    printf("(skldfjskldjflksdj)\n" );
     snprintf(buffer, sizeof(buffer), "%d-%d-%d-%d", 1,1,1,1);
     write(players[i], buffer, sizeof(buffer));
-    snprintf(buffer, sizeof(buffer), "You are player #%d", i);
+    snprintf(buffer, sizeof(buffer), "%d", i);
     write(players[i], buffer, sizeof(buffer));
     memset(buffer, 0, BUFFER_SIZE);
-    printf("(skldfjskldjflksdj)\n" );
   }
 
   while(1) {
-    printf("(skldfjskldjflksdj)\n" );
-
     for (i = 0; i < num_players; i++) {
       turns[i] += 1;
       while (turns[i]) {
