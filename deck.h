@@ -13,3 +13,4 @@ int draw_card();
 
 int create_table();
 int print_table();
+char * random_m(int num);

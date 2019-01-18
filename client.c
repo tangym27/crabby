@@ -1,7 +1,21 @@
 #include "networking.h"
 #include "player.h"
 #include "deck.h"
+
 #include <stdio.h>
+#include <time.h>
+
+// char * secrets[18] = {"Red Vegetables", "Cool-Toned Fruits", "Small Dogs", "Big Dogs", "Names of CS Teachers", "Literary Characters' Last Names", "Desserts", "Naturally Occuring Structures", "Disney Characters", "Scientists' First Names", "Stuff you can buy at Muji", "Stuff you CAN'T buy at Muji", "New York Street Names","a","b","c","d","e"};
+//
+// char * random_selection( int team_no) {
+//     int rand_no;
+//     for (int i = 0; i < team_no; i++) {
+//         rand_no = rand();
+//     }
+//     return secrets[ rand_no % 18];
+// }
+//
+
 
 int check_buffer(char * buffer, int size, int crab_deck[]){
   if (strcmp(buffer, "end") == 0){
@@ -53,19 +67,20 @@ int main(int argc, char **argv) {
  // }
 
  while (1) {
+
     while (read(server_socket, buffer, sizeof(buffer))) {
       if (strcmp(buffer, ACK)) {
         printf("You are player \033[0;31m#%d\x1b[0m!\n", atoi(buffer));
         // printf("atoi(buffer)%d\n", atoi(buffer) );
         if(atoi(buffer) < 2) {
           printf("You are on TEAM \033[0;31m#0\x1b[0m!\n");
-          printf("You're secret message is ")
-
+          printf("Your secret message is %s\n", random_m(atoi(buffer)));
         }
         else{
           printf("You are on TEAM \033[0;31m#1\x1b[0m!\n");
+          printf("Your secret message is %s\n", random_m(atoi(buffer)));
         }
-    }
+      }
       else break;
     }
 
@@ -76,8 +91,7 @@ int main(int argc, char **argv) {
     make_deck();
 
     printf("Welcome, crab! Here are your teammates.\n\n");
-
-    printf("It is currently your turn. Here is your hand: \n\n");
+//  printf("It is currently your turn. Here is your hand: \n\n");
     make_hand( my_player);
     print_hand( my_player);
 
@@ -88,42 +102,41 @@ int main(int argc, char **argv) {
 
     //while the player didn't say they wanted to end their turn
     //	printf("check");
-      while(check_buffer(buffer, size, crab_deck)){
+    while(check_buffer(buffer, size, crab_deck)){
       printf("Would you like to switch any cards? [y/n] ");
       int * switch_res = malloc(256);
-       scanf("%s",switch_res);
+      scanf("%s",switch_res);
 
       if (switch_res[0] == 'y'){
         printf("which cards would you like to switch? Type the card number from your hand: ");
         int * hand_res= malloc(256);
         //fgets(hand_res, 200, stdin);
-	scanf("%d",hand_res);
-	printf("Type the card number from the deck: ");
+        scanf("%d",hand_res);
+        printf("Type the card number from the deck: ");
         int * deck_res = malloc(256);
-	scanf("%d",deck_res);
+        scanf("%d",deck_res);
 
-     swap_cards(atoi(buffer), *hand_res, *deck_res);
-      //*strchr(buffer, '\n') = 0;
+        swap_cards(atoi(buffer), *hand_res, *deck_res);
+        //*strchr(buffer, '\n') = 0;
       }
     }
     printf("your turn has ended.\n");
-
     write(server_socket, buffer, sizeof(buffer));
     memset(buffer, 0, BUFFER_SIZE);
     read(server_socket, buffer, sizeof(buffer));
     //   //printf("buffer:%s\n", buffer);
     //   int id = atoi(buffer);
     // //  printf("Card name: %s\n",get_card_name(catalog, id) );
-      char * name = calloc(50, sizeof(char));
-      name = "boop";
-      sprintf(buffer, "Drew the %s card.\n", name);
+    char * name = calloc(50, sizeof(char));
+    name = "boop";
+    sprintf(buffer, "Drew the %s card.\n", name);
     //   //if (strcmp(name, "Exploding Kitten")){
-      memset(buffer, 0, BUFFER_SIZE);
-     strcpy(buffer, "drew");
-      write(server_socket, buffer, sizeof(buffer));
-      printf("BUGGER: %s\n",buffer );
-      //crab_deck[size] = atoi(buffer);
-      size++;
+    memset(buffer, 0, BUFFER_SIZE);
+    strcpy(buffer, "drew");
+    write(server_socket, buffer, sizeof(buffer));
+    printf("BUGGER: %s\n",buffer );
+    //crab_deck[size] = atoi(buffer);
+    size++;
     //  }
   }
 }

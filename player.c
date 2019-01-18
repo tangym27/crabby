@@ -4,6 +4,7 @@
 #include <string.h>
 #include "deck.h"
 #include "networking.h"
+#include "time.h"
 
 
 #define MAX_GAME_SIZE 6
@@ -13,6 +14,44 @@ struct team { int points; struct player * p_0; struct player * p_1; };
 struct player {int p_num;  char * username; int hand[4]; int partner; struct team * p_team; int is_turn;};
 struct player * players[MAX_GAME_SIZE];
 struct team * teams[MAX_GAME_SIZE/2];
+
+char * secrets[13] = {"Red Vegetables", "Cool-Toned Fruits", "Small Dogs", "Big Dogs", "Names of CS Teachers", "Literary Characters' Last Names", "Desserts", "Naturally Occuring Structures", "Disney Characters", "Scientists' First Names", "Stuff you can buy at Muji", "Stuff you CAN'T buy at Muji", "New York Street Names"};
+
+char * random_selection( int team_no) {
+  srand(time(NULL));
+    int rand_no;
+    for (int i = 0; i < team_no; i++) {
+        rand_no = rand();
+    }
+    return secrets[ rand_no % 13];
+}
+
+char team0_secret[100] = "N/A";
+char team1_secret[100] = "N/A";
+
+
+char * random_m(int player_num){
+  printf("wha%dt\n",strcmp(team0_secret, "N/A") );
+  printf("hey%d\n",strcmp(team1_secret, "N/A") );
+
+  if (strcmp(team0_secret, "N/A") == 0){
+    // printf("hi\n" );
+   strcpy(team0_secret , random_selection(1));
+  }
+  if (strcmp(team1_secret, "N/A") == 0){
+    // printf("got here!!\n" );
+    strcpy(team1_secret , random_selection(3));
+
+//    strcpy(team0_secret , "burpo");
+  }
+  if (player_num < 2){
+    return team0_secret;
+  }
+  else {
+    return team1_secret;
+  }
+
+}
 
 /* Given a username, creates a player and returns their player number.
  * This player can be accessed by players[ PLAYER_NO]
@@ -162,14 +201,22 @@ int called_crabs( int check_team, int caller_team){
   struct team * team_calling = teams[caller_team];
   if (check_crabs(team_to_check->p_0) || check_crabs(team_to_check->p_1)){
     team_calling->points++;
-    if (team_to_check->p_0->hand[0] != NULL)
+    if (team_to_check->p_0->hand[0] != NULL){
       make_hand(team_to_check->p_0->p_num);
-    else
+    }
+    else{
       make_hand(team_to_check->p_1->p_num);
+    }
   }
-  else
+  else{
     team_calling->points--;
+  }
+  return 0;
 }
+//
+// int (){
+//   srand( time(NULL));
+
 
 // int main(int argc, char **argv) {
 //     srand( time(NULL));
