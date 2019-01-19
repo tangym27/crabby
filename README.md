@@ -6,17 +6,16 @@
 Our project is based on the card game, You’ve Got Crabs. Players break up into groups of two and try to win as many
 crabs as possible.
 
-To start, the team will get a secret signal which will indicate when a person has ‘crabs.’ In
-the real-life game, the signal can be touching your nose or itching your eyebrow. In our version, it will be a secret
+To start, the team will get a secret signal which will indicate when a person has ‘crabs.’ In our version, it will be a secret
 phrase/codeword that only the two members have access to. Each player then gets four cards and the objective
-(to get ‘crabs’) is to have four of a kind (which is four of the same color - the game is played with a non-traditional deck).
+(to get ‘crabs’) is to have four of a kind.
 
 The teammates must sit across from each other, forming two different sides. At any given time, only one side can play
 (therefore only one of the players can be active). Meanwhile, the other side will be watching to see if the signal is
 given. There will be four cards on the table. For the active side, the player will have the opportunity to switch any
 card on the table with any card in their hand so that they can try and get four of a kind. They can make as many switches
 as possible and when they are done, they place their hand down and the other side goes. If no switches are made on both
-sides, then the four cards on the table are thrown back in the deck, and four new cards are drawn.
+sides, then the four new cards are drawn for the table.
 
 If a person has four of a kind, they will secretly signal their teammate. If the teammate sees the signal, they will call
 out “You’ve got crabs!” and the team will be awarded a crab (point). If an opposing teammate sees the signal (having
@@ -38,8 +37,9 @@ they do not have crabs (which seems like it could fit into the “tomato”/”a
 
 #### User commands:
 To make moves, type these commands:
-- end : end your turn. Then you won't be able to swap cards, but there will be another player playing.
-- swap: You can swap any card from your hand with one of the  cards on the table. You will be prompted after to give the index's of each card. 
+- `end `end your turn. Then you won't be able to swap cards, but there will be another player playing.
+- `swap` You can swap any card from your hand with one of the cards on the table. You will be prompeted after to give the index's of each card. 
+- `new table` Changes the cards on the rable
 
 ### Bugs:
 - The teams are hardcoded, as in you cannot pick your team member. The first two players that join (players 0 and 1) make up
