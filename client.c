@@ -86,6 +86,7 @@ int main(int argc, char **argv) {
         my_player = create_player(response);
         printf("Welcome %s \n", response);
         printf("It is currently your turn. Here is your hand: \n");
+        make_deck();
         make_hand( my_player);
         printf("did we make the hand?!\n");
         print_hand(my_player);
@@ -178,13 +179,14 @@ int main(int argc, char **argv) {
     //     //*strchr(buffer, '\n') = 0;
     //   }
     // }
-
-    printf("your turn has ended.\n");
-    // strcpy(buffer,"drew");
-    write(server_socket, buffer, sizeof(buffer));
-    memset(buffer, 0, BUFFER_SIZE);
-    read(server_socket, buffer, sizeof(buffer));
-    sprintf(buffer, "send a message.\n");
+    if (!strcmp(buffer, "end")){
+      printf("your turn has ended.\n");
+      // strcpy(buffer,"drew");
+      write(server_socket, buffer, sizeof(buffer));
+      memset(buffer, 0, BUFFER_SIZE);
+      read(server_socket, buffer, sizeof(buffer));
+      sprintf(buffer, "send a message.\n");
+    }
 
   //
   // //  memset(buffer, 0, BUFFER_SIZE);

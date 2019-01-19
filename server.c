@@ -13,6 +13,12 @@ char * team1_secret = "";
 
 int main(int argc, char **argv) {
 
+  make_deck();
+  create_table();
+  printf("return%s\n",return_table() );
+
+  print_table();
+
 
   // char * team0_secret = random_selection(0);
   // char * team1_secret = random_selection(1);

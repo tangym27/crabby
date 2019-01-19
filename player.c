@@ -7,13 +7,13 @@
 #include "time.h"
 
 
-#define MAX_GAME_SIZE 6
-//max game size currently 6: change later if desired
+#define MAX_GAME_SIZE 4
+//max game size currently 4: change later if desired
 
 struct team { int points; struct player * p_0; struct player * p_1; };
 struct player {int p_num;  char * username; int hand[4]; int partner; struct team * p_team; int is_turn;};
 struct player * players[MAX_GAME_SIZE];
-struct team * teams[MAX_GAME_SIZE/2];
+struct team * teams[2];
 
 char * secrets[13] = {"Red Vegetables", "Cool-Toned Fruits", "Small Dogs", "Big Dogs", "Names of CS Teachers", "Literary Characters' Last Names", "Desserts", "Naturally Occuring Structures", "Disney Characters", "Scientists' First Names", "Stuff you can buy at Muji", "Stuff you CAN'T buy at Muji", "New York Street Names"};
 
