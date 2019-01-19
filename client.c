@@ -126,7 +126,7 @@ int main(int argc, char **argv) {
           ONCE=1;
         }
       }
-      //
+/////////////////////// THIS DOES NOT WORK -- YET TO BE IMPLEMENTED WITH SERVER. 
       if (strcmp(buffer, "crabs") == 0){
         printf("Which team would you like to call for having crabs (0 or 1)?\n");
         fgets(team, sizeof(buffer), stdin);
@@ -148,7 +148,7 @@ int main(int argc, char **argv) {
         print_table();
       }
     }
-
+///////////////////////
     if (!strcmp(buffer, "end")){
       printf("your turn has ended.\n");
       write(server_socket, buffer, sizeof(buffer));

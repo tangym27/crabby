@@ -29,7 +29,7 @@ words like “tomato”, “rose”, “apple”, and “heart”. To trick oppo
 they do not have crabs (which seems like it could fit into the “tomato”/”apple” pattern without more information).
 
 ### How to run this project:
-- Find your IP address and type it into networking.h, LINE 19, #define TEST_IP [your ip here]
+- Find your IP address of the SERVER and type it into networking.h, LINE 19, #define TEST_IP [your ip here]
 - Type 'make' into the terminal
 - To run the server: ./server 4
 - To run the clients: ./client, for each client that you listed would be playing when you declared the number of players. The game will not start until this number of players has joined.
@@ -38,8 +38,8 @@ they do not have crabs (which seems like it could fit into the “tomato”/”a
 #### User commands:
 To make moves, type these commands:
 - `end `end your turn. Then you won't be able to swap cards, but there will be another player playing.
-- `swap` You can swap any card from your hand with one of the cards on the table. You will be prompeted after to give the index's of each card. 
-- `new table` Changes the cards on the rable
+- `swap` You can swap any card from your hand with one of the cards on the table. You will be prompted after to give the index's of each card.
+- `new table` Changes the cards on the table. The user can only do it once per game.
 
 ### Bugs:
 - The teams are hardcoded, as in you cannot pick your team member. The first two players that join (players 0 and 1) make up
@@ -49,3 +49,5 @@ given to their partner.
 - Need to include your IP address in networking.h for the clients to connect properly
 - Instead of the server maintaining one deck, the clients each have their own deck.
 - The person who just played does not get to see the message of the next player.
+- The teams get separate messages. (They would get the same if we moved randomize to the server file but we didn't realize that until it was too late).
+- Checking for crabs does not work. (Works respectively in the client and in the server but not together.)

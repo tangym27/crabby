@@ -47,3 +47,8 @@ sg: worked on swapping cards mechanism
 --1/18--
 mt,eg,mb: debugging client communication
 sg: worked on swapping cards mechanism
+
+--1/19--
+mt: redid server because it was a mess, started checking crab for server
+mb: finished swapping cards mechanism, started checking crab for client
+eg: handled production of decks and tables for each user
