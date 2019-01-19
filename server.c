@@ -27,10 +27,18 @@ int main(int argc, char **argv) {
   int subserver_count = 0;
   char buffer[BUFFER_SIZE];
   char message[BUFFER_SIZE];
+  char response[BUFFER_SIZE];
+  char status[BUFFER_SIZE];
+  char team[BUFFER_SIZE];
+
+  int aCRABS = 0;
+  int bCRABS = 0;
+  int cCRABS = 0;
+  int dCRABS = 0;
 
 
   if (argc < 2) {
-    printf("Please enter ./server 4 or ./server 6\n");
+    printf("Please enter ./server 4 \n");
     exit(1);
   }
   else {
@@ -68,27 +76,75 @@ int main(int argc, char **argv) {
 
   memset(buffer, 0, BUFFER_SIZE);
 
+// char * secret_0 = random_selection(1);
+// char * secret_1 = random_selection(2);
+//
+// write(players[0], secret_0, sizeof(secret_0));
+// write(players[1], secret_0, sizeof(secret_0));
+// write(players[2], secret_1, sizeof(secret_1));
+// write(players[3], secret_1, sizeof(secret_1));
+
   while(1) {
     for (i = 0; i < num_players; i++) {
       turns[i] += 1;
       while (turns[i]) {
+
         write(players[i], ACK, sizeof(ACK));
         read(players[i], buffer, sizeof(buffer));
+        /*if the player wants to end their turn */
         if(strcmp(buffer, "end") == 0) {
-
           // strcpy(card, "this is suppose to be a card");
           read(players[i], message, sizeof(message));
           printf("message?%s\n",message );
           //printf("%s\n", card);
-          char card_id[8];
-          sprintf(card_id, "5");
           //printf("cardid:%s\n", card_id);
-          write(players[i], card_id, sizeof(card_id));
 
           //strcat("Player #%d says: ", message)
           sprintf(buffer, "Player #%d says %s",i, message);
           turns[i] -= 1;
+
+          // read(players[i], status, sizeof(status));
+          // if (strcmp(status, "1") == 0){
+          //   if (i == 0 ){
+          //     aCRABS=1;
+          //   }
+          //   if (i == 1 ){
+          //     bCRABS=1;
+          //   }
+          //   if (i == 2 ){
+          //     cCRABS=1;
+          //   }
+          //   if (i == 3 ){
+          //     dCRABS=1;
+          //   }
+          // }
+
         }
+        else if (strcmp(buffer, "crab") == 0) {
+          read (players[i], team, sizeof(team));
+          if (strcmp(team, "0") == 0) {
+            if (aCRABS || bCRABS){
+              strcpy(response, "yes");
+              write(players[i], response, sizeof(response));
+            }
+            else{
+              strcpy(response, "no");
+              write(players[i], response, sizeof(response));
+            }
+          }
+          else if (strcmp(team, "1") == 0) {
+            if (cCRABS || dCRABS){
+              strcpy(response, "yes");
+              write(players[i], response, sizeof(response));
+            }
+            else{
+              strcpy(response, "no");
+              write(players[i], response, sizeof(response));
+            }
+          }
+        }
+
+
         // printf( "what%s", print_table());
     //    strcpy( buffer, return_table());
         for (j = 0; j < num_players; j++)
@@ -115,14 +171,7 @@ int main(int argc, char **argv) {
         //     write(players[2], message, sizeof(message));
         //     write(players[3], message, sizeof(message));
         //   }
-        //   printf("everything is gucci\n" );
-          // char card[50];
-          // strcpy(card, draw_card(deck, &deck_size));
-          // //printf("%s\n", card);
-          // char card_id[8];
-          // sprintf(card_id, "%d", get_card_id(card));
-          // //printf("cardid:%s\n", card_id);
-        //  sprintf(buffer, "Player %d ended their turn. They sent the message '%s'", i, "dud");
+
 
         }
 

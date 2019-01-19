@@ -6,7 +6,6 @@
 #include "networking.h"
 #include "time.h"
 
-
 #define MAX_GAME_SIZE 4
 //max game size currently 4: change later if desired
 
@@ -17,8 +16,8 @@ struct team * teams[2];
 
 char * secrets[13] = {"Red Vegetables", "Cool-Toned Fruits", "Small Dogs", "Big Dogs", "Names of CS Teachers", "Literary Characters' Last Names", "Desserts", "Naturally Occuring Structures", "Disney Characters", "Scientists' First Names", "Stuff you can buy at Muji", "Stuff you CAN'T buy at Muji", "New York Street Names"};
 
-char * random_selection( int team_no) {
-  srand(time(NULL));
+char * random_selection(int team_no) {
+    srand(time(NULL));
     int rand_no;
     for (int i = 0; i < team_no; i++) {
         rand_no = rand();
@@ -29,25 +28,23 @@ char * random_selection( int team_no) {
 char team0_secret[100] = "N/A";
 char team1_secret[100] = "N/A";
 
-
 char * random_m(int player_num){
+//  printf("this is what team0_secret is  %s\n", team0_secret );
+//  printf("this is what team1_secret is %s\n", team1_secret );
   if (strcmp(team0_secret, "N/A") == 0){
-    // printf("hi\n" );
    strcpy(team0_secret , random_selection(1));
   }
   if (strcmp(team1_secret, "N/A") == 0){
-
-    strcpy(team1_secret , random_selection(3));
-
-//    strcpy(team0_secret , "burpo");
+    strcpy(team1_secret , random_selection(2));
   }
+//  printf("this is what team0_secret is  %s\n", team0_secret );
+//  printf("this is what team1_secret is %s\n", team1_secret );
   if (player_num < 2){
     return team0_secret;
   }
   else {
     return team1_secret;
   }
-
 }
 
 /* Given a username, creates a player and returns their player number.
@@ -122,6 +119,7 @@ int get_points( int player_no){
     return players[player_no]->p_team->points;
 }
 
+
 /* Given a player_no, checks if the player's hand contains crabs.
  * Returns 0 if no crabs. Returns 1 if crabs.
  */
@@ -131,6 +129,9 @@ int check_crabs( int player_no) {
     for (int i=1; i<4; i++){
         if ( card_check != plyr->hand[i] ) return 0;
     }
+    printf("They found you had crabs! Generating new hand...\n");
+    // make_hand(player_no);
+    // print_hand(player_no);
     return 1;
 }
 
@@ -138,24 +139,28 @@ int check_crabs( int player_no) {
 int print_hand( int player_no) {
     struct player * plyr = players[player_no];
     if (plyr) {
-        printf("Cards in your hand: \n");
+      printf("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n|\n" );
+        printf("|   Cards in your hand: \n|");
         for (int i=0; i<3; i++){
             printf("[%d] %s, ", i, cards[ plyr->hand[i]]);
         }
         printf("and [3] %s\n", cards[ plyr->hand[3]]);
         if (check_crabs(player_no)) printf("Psst! Congratulations. You've got crabs!\n");
-        else printf("No crabs here. Maybe you should trade some cards?\n");
+        else printf("|    No crabs here. Maybe you should trade some cards?\n|");
+        printf("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n" );
         return 0;
     }
     return -1;
 }
+
+
 
 /* Given an int player_no, the index of the player's card to be switched, and the index of the table's card to be switched.
  * Returns -1 if no player with that player_no was found, and -2 if it is not currently the player's turn.
  * Else, returns 0.
  */
 int swap_cards( int player_no, int player_card_index, int deck_card_index) {
-    if (! players[player_card_index]) return -1;
+    //if (! players[player_no]) return -1;
     //if (! players[player_card_index]->is_turn) return -2;
 
     int deck_card = current_table->table_cards[deck_card_index];
@@ -167,14 +172,12 @@ int swap_cards( int player_no, int player_card_index, int deck_card_index) {
     return 0;
 }
 
-
 /* Given a team_no, switches turns.
  * If both players on a team were turnless, it becomes player 0's turn.
  * If no team was found with that team_no, -1 is returned.
  */
 int switch_turns( int team_no) {
     if (! teams[team_no]) return -1;
-
     if (teams[team_no]->p_0->is_turn) {
         teams[team_no]->p_0->is_turn = 0;
         teams[team_no]->p_1->is_turn = 1;
@@ -183,10 +186,35 @@ int switch_turns( int team_no) {
         teams[team_no]->p_0->is_turn = 1;
         teams[team_no]->p_1->is_turn = 0;
     }
-
     return 0;
 }
 
+int end_game() {
+  struct team * team0 = teams[0];
+  struct team * team1 = teams[1];
+  printf("This is the end of the game! We hope you had a crabtastic time!\n");
+  printf("Team 0 had %d points!\n", team0->points);
+  if (team1) printf("Team 1 had %d points!\n", team1->points);
+  printf("Thanks for tagging along!\n");
+  return 0;
+}
+
+int got_crabs(int caller_team){
+  struct team * team_calling = malloc(256);
+  team_calling = teams[caller_team];
+  printf("YES! They had crabs! One point has been awarded to your team.\n");
+  team_calling->points++;
+  if(team_calling->points > 0){
+    end_game();
+  }
+  return 0;
+}
+
+int not_crabs( int caller_team) {
+  struct team * team_calling = teams[caller_team];
+  printf("They did not have crabs! Your team has lost one point.\n");
+  team_calling->points--;  //gave me error
+}
 /* Given the number of the team to check and the number of the team who called crabs,
  * checks if the team to check has crabs.
  * If the team has crabs, one point is added to the team who called, and the team with
@@ -201,6 +229,9 @@ int called_crabs( int check_team, int caller_team){
   if (check_crabs(team_to_check->p_0->p_num) || check_crabs(team_to_check->p_1->p_num)){
     printf("YES! They had crabs! One point has been awarded to your team.\n");
     team_calling->points++;
+    if(team_calling->points > 0){
+      end_game();
+    }
     if (team_to_check->p_0->hand[0]){
       make_hand(team_to_check->p_0->p_num);
       print_hand(team_to_check->p_0->p_num);
@@ -211,11 +242,12 @@ int called_crabs( int check_team, int caller_team){
     }
   }
   else{
-    printf("They did not have crabs! Your team has lost one point.\n");
-    team_calling->points--;
+    not_crabs(caller_team);
   }
   return 0;
 }
+
+
 
 //     int my_team = form_team( my_player, my_teammate);
 //      teams[my_team]->p_0->is_turn = 1;

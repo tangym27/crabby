@@ -5,29 +5,16 @@
 #include <stdio.h>
 #include <time.h>
 
-int check_buffer(char * buffer, int size, int crab_deck[]){
+int buff_content(char * buffer, int size){
   if (strcmp(buffer, "end") == 0){
-    printf("(end happened)\n" );
+  //  printf("(end happened)\n" );
     return 0;
   }
-  else if (strcmp(buffer, "print") == 0)
-  return 0;
-  else{
-    int i = atoi(buffer);
-    if (i == 0)
-    return 1;
-    else{
-      if (i > size-1)
-      return 1;
-      else if (crab_deck[i] == 0)
-      return 1;
-      else
-      return 0;
-    }
-  }
+  return 1;
 }
 
 int main(int argc, char **argv) {
+  srand(time(NULL));
 
   printf("\e[1;1H\e[2J\n\n");
   printf("Welcome to 'Why So \033[0;31mCrabby\x1b[0m?':\nA \033[0;31mcrabtastic\x1b[0m game by Maia Brydon, Ela Gulsen, Shafali Gupta, and Michelle Tang!\n");
@@ -42,11 +29,11 @@ int main(int argc, char **argv) {
   char deckpos[BUFFER_SIZE];
   char handpos[BUFFER_SIZE];
   char team[BUFFER_SIZE];
+  char response[BUFFER_SIZE];
+  char status[BUFFER_SIZE];
 
-  if (argc == 2)
-  server_socket = client_setup( argv[1]);
-  else
-  server_socket = client_setup( TEST_IP );
+  if (argc == 2) server_socket = client_setup( argv[1]);
+  else server_socket = client_setup( TEST_IP );
 
   int my_player = 0;
   int SETUP = 1;
@@ -56,21 +43,28 @@ int main(int argc, char **argv) {
     int ONCE = 0;
     printf("It is not your turn yet.\n");
     while (read(server_socket, buffer, sizeof(buffer))) {
-      printf("THIS IS THE SETUP%d\n",SETUP );
       if (strcmp(buffer, ACK) && SETUP) {
 
         printf("What would you like your \033[0;31musername\x1b[0m to be? ");
         char * response = malloc(256);
         fgets(response,sizeof(response),stdin);
+        *strchr(response, '\n') = 0;
 
         my_player = create_player(response);
-        printf("Welcome %s \n", response);
-        printf("It is currently your turn. Here is your hand: \n");
-        make_deck();
-        make_hand(my_player);
-        print_hand(my_player);
-        create_table();
-        print_table();
+        printf("Welcome, %s!\n", response);
+
+        printf("In this game, you will be switching cards between your hand and the table as well as looking out\n");
+        printf("For when your hand contains 4 of the same card - that's called 'crabs'.\n");
+
+        printf("When it is your turn, you will be asked if you'd like to switch cards. Generally, if you don't have crabs, you should say yes\n");
+        printf("To get a hand that has more cards of a kind. Remember, your opponent will be switching cards too, so be fast!\n");
+
+        printf("\n\nWhen you are done switching, enter 'end' and your turn will be over. Afterwards, you will have to send a secret message.\n");
+        printf("What is this secret message, you ask? Well... in a few seconds, you will receive your team's very own secret message category.\n");
+        printf("This category can be something like books, foods, or people. If your hand contains crabs, send a message that fits the theme of the secret.\n");
+        printf("Otherwise, try to trick your teammates into thinking you really do have crabs by sending ambiguous messages that don't fit your secret!\n");
+
+        printf("Anyway, that was a lot of explanation. Let's go to playing the game, huh?\n\n");
 
         printf("NEED TO PRINT OUT HAND AND TABLE HERE\n");
         SETUP = 0;
@@ -79,12 +73,18 @@ int main(int argc, char **argv) {
         printf("You are player \033[0;31m#%d\x1b[0m!\n", atoi(buffer));
         if(atoi(buffer) < 2) {
           printf("You are on TEAM \033[0;31m#0\x1b[0m!\n");
-          printf("Your secret message is %s\n", random_m(atoi(buffer)));
+      //    printf("Your secret message is \033[0;31m#%s\x1b[0m!\n",  /*random_m(atoi(buffer))*/);
         }
         else{
           printf("You are on TEAM \033[0;31m#1\x1b[0m!\n");
-          printf("Your secret message is %s\n", random_m(atoi(buffer)));
+      //    printf("Your secret message is \033[0;31m#%s\x1b[0m!\n", /*random_m(atoi(buffer))*/);
         }
+        printf("It is currently your turn. Here is your hand: \n");
+        make_deck();
+        make_hand(my_player);
+        print_hand(my_player);
+        create_table();
+        print_table();
         SETUP2=0;
       }
       else if(strcmp(buffer, ACK)){
@@ -97,8 +97,8 @@ int main(int argc, char **argv) {
     }
     fflush(stdin);
     fflush(stdout);
-    while(check_buffer(buffer, size, crab_deck)){
-      printf("enter data: ");
+    while(buff_content(buffer, size)){
+      printf("Command: ");
       fgets(buffer, sizeof(buffer), stdin);
       *strchr(buffer, '\n') = 0;
 
@@ -110,7 +110,7 @@ int main(int argc, char **argv) {
         fgets(deckpos, sizeof(buffer), stdin);
         *strchr(deckpos, '\n') = 0;
         swap_cards(my_player, atoi(handpos), atoi(deckpos));
-        printf("atoi(handpos)%d\n", atoi(handpos) );
+      //  printf("atoi(handpos)%d\n", atoi(handpos) );
         print_hand(my_player);
         print_table();
       }
@@ -126,21 +126,27 @@ int main(int argc, char **argv) {
           ONCE=1;
         }
       }
-
+      //
       if (strcmp(buffer, "crabs") == 0){
         printf("Which team would you like to call for having crabs (0 or 1)?\n");
         fgets(team, sizeof(buffer), stdin);
         *strchr(team, '\n') = 0;
-        int calling_team;
-        if (my_player == 0 || my_player == 1)
-            calling_team = 0;
-        else
-            calling_team = 1;
-        called_crabs(atoi(team), calling_team);
+        // ask server to check crabs
+        // server response
+        write(server_socket, buffer, sizeof(buffer));
+        memset(buffer, 0, BUFFER_SIZE);
+      //  write(server_setup, team, sizeof(team));
+
+        read(server_socket, response, sizeof(response));
+        if (strcmp(response, "yes") == 0){
+          got_crabs(my_player);
+        }
+        else{
+          not_crabs(my_player);
+        }
         print_hand(my_player);
         print_table();
       }
-
     }
 
     if (!strcmp(buffer, "end")){
@@ -158,5 +164,6 @@ int main(int argc, char **argv) {
       read(server_socket, buffer, sizeof(buffer));
       sprintf(buffer, "send a message.\n");
     }
+
   }
 }

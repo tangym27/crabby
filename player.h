@@ -22,5 +22,8 @@ int print_hand( int player_no);
 int swap_cards( int player_no, int player_card_index, int deck_card_index);
 int switch_turns( int team_no);
 int called_crabs( int check_team, int caller_team);
+int end_game();
+int got_crabs(int my_player);
+int not_crabs(int my_player);
 
 #endif

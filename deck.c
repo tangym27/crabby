@@ -57,15 +57,15 @@ int create_table() {
 
 /* Prints the contents of the table. */
 int print_table() {
-    if (current_table->table_cards) {
-      printf("-------------------------------------------------------------------\n");
+//    if (current_table->table_cards) {
+      printf("---------------------------------------------------------------------------\n|\n|\n");
       printf("|   Cards on the table: \n| ");
       for (int i=0; i<3; i++){
         printf("[%d] %s, ", i, cards[ current_table->table_cards[i]]);
       }
       printf("and [3] %s\n", cards[ current_table->table_cards[3]]);
-      printf("      | -------------------------------------------------------------------\n");
+      printf("|\n|\n---------------------------------------------------------------------------\n");
         return 0;
-    }
+//    }
     return -1;
 }
