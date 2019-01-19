@@ -75,7 +75,7 @@ int main(int argc, char **argv) {
 
 
   memset(buffer, 0, BUFFER_SIZE);
-
+////// THIS DID NOT WORK YET.
 // char * secret_0 = random_selection(1);
 // char * secret_1 = random_selection(2);
 //
@@ -102,7 +102,7 @@ int main(int argc, char **argv) {
           //strcat("Player #%d says: ", message)
           sprintf(buffer, "Player #%d says %s",i, message);
           turns[i] -= 1;
-
+// THIS DOES NOT WORK : SERVER SIDE OF THE CHECKING CRABS FUNCTION
           // read(players[i], status, sizeof(status));
           // if (strcmp(status, "1") == 0){
           //   if (i == 0 ){
