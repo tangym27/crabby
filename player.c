@@ -141,7 +141,7 @@ int check_crabs( int player_no) {
 int print_hand( int player_no) {
     struct player * plyr = players[player_no];
     if (plyr) {
-        printf("Cards in %s's hand: \n", plyr->username);
+        printf("Cards in your hand: \n");
         for (int i=0; i<3; i++){
             printf("[%d] %s, ", i, cards[ plyr->hand[i]]);
         }

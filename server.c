@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "networking.h"
+#include "deck.h"
 
 void process(char *s);
 void subserver(int from_client);
@@ -11,6 +12,7 @@ char * team0_secret = "";
 char * team1_secret = "";
 
 int main(int argc, char **argv) {
+
 
   // char * team0_secret = random_selection(0);
   // char * team1_secret = random_selection(1);
@@ -26,11 +28,11 @@ int main(int argc, char **argv) {
   char buffer[BUFFER_SIZE];
 
   if (argc < 2) {
-      printf("Please enter ./server 4 or ./server 6\n");
-      exit(1);
-    }
-    else {
-      sscanf(argv[1], "%d", &num_players);
+    printf("Please enter ./server 4 or ./server 6\n");
+    exit(1);
+  }
+  else {
+    sscanf(argv[1], "%d", &num_players);
   }
   //set of file descriptors to read from
   // fd_set read_fds;
@@ -49,10 +51,11 @@ int main(int argc, char **argv) {
   }
   shutdown(listen_socket, SHUT_RD);
   printf("\n\nGame is starting! The action will take place in the clients' side. Buckle up!\n");
-//  char buffer[BUFFER_SIZE];
+  //  char buffer[BUFFER_SIZE];
+
 
   for (i = 0; i < num_players; i++) {
-  //  fflush(stdo);
+    //  fflush(stdo);
     snprintf(buffer, sizeof(buffer), "%d-%d-%d-%d", 1,1,1,1);
     write(players[i], buffer, sizeof(buffer));
     snprintf(buffer, sizeof(buffer), "%d", i);
@@ -60,26 +63,40 @@ int main(int argc, char **argv) {
     memset(buffer, 0, BUFFER_SIZE);
   }
 
+  make_deck();
+  create_table();
+  print_table();
+
   while(1) {
     for (i = 0; i < num_players; i++) {
       turns[i] += 1;
       while (turns[i]) {
         write(players[i], ACK, sizeof(ACK));
         read(players[i], buffer, sizeof(buffer));
+        // printf("here! %s a\n", buffer );
+        // sprintf(buffer, "Player %d ended their turn. They sent the message '%s'", i, "dud");
+        // write(players[i], "hi", 100);
+        // sprintf(buffer, "Player %d ended their turn. They sent the message '%s'", i, "dud");
+        // // write(client_socket, "jlkadsf", 10000);
+        // printf("sdklfjs\n" );
         if(strcmp(buffer, "drew") == 0) {
+          printf("player ended their turn!\n" );
+          print_table();
+
           // char card[50];
           // strcpy(card, draw_card(deck, &deck_size));
           // //printf("%s\n", card);
           // char card_id[8];
           // sprintf(card_id, "%d", get_card_id(card));
           // //printf("cardid:%s\n", card_id);
-    //      write(players[i], "card_id", 20);
-          sprintf(buffer, "Player %d ended their turn.", i);
-	  turns[i] -= 1;
+        //  write(players[i], "card_id", 20);
+        //  sprintf(buffer, "Player %d ended their turn. They sent the message '%s'", i, "dud");
+          turns[i] -= 1;
+        }
+
+      }
+    }
   }
-}
-}
-}
 }
 
 
@@ -127,7 +144,7 @@ void subserver(int client_socket) {
   while (read(client_socket, buffer, sizeof(buffer))) {
     printf("[subserver %d] received: [%s]\n", getpid(), buffer);
     process(buffer);
-    write(client_socket, buffer, sizeof(buffer));
+  //  write(client_socket, buffer, sizeof(buffer));
   }//end read loop
   close(client_socket);
   exit(0);
@@ -136,9 +153,9 @@ void subserver(int client_socket) {
 void process(char * s) {
   while (*s) {
     if (*s >= 'a' && *s <= 'z')
-      *s = ((*s - 'a') + 13) % 26 + 'a';
+    *s = ((*s - 'a') + 13) % 26 + 'a';
     else  if (*s >= 'A' && *s <= 'Z')
-      *s = ((*s - 'a') + 13) % 26 + 'a';
+    *s = ((*s - 'a') + 13) % 26 + 'a';
     s++;
   }
 }
