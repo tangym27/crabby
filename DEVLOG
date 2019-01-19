@@ -2,7 +2,7 @@ DEVLOG
 
 FORMAT:
 --date--
-person: thing they did 
+person: thing they did
 
 KEY:
 mt = michelle tang
@@ -31,3 +31,19 @@ sg,mt: got the client/server connection working (somewhat)
 
 --1/14--
 sg,mt,eg,mb: debugging the client/server connection
+
+--1/15--
+mt: client/server connection mostly working
+sg: assigning teams, getting secret messages
+
+--1/16--
+mt: further fixed server
+
+--1/17--
+mt,eg: sending secret message to server
+mb: worked on adding/subtracting points
+sg: worked on swapping cards mechanism
+
+--1/18--
+mt,eg,mb: debugging client communication
+sg: worked on swapping cards mechanism
