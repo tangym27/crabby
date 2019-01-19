@@ -127,19 +127,19 @@ int main(int argc, char **argv) {
         }
       }
 
-      // if (strcmp(buffer, "crabs") == 0){
-      //   printf("Which team would you like to call for having crabs (0 or 1)?\n");
-      //   fgets(team, sizeof(buffer), stdin);
-      //   *strchr(team, '\n') = 0;
-      //   int calling_team;
-      //   if (my_player == 0 || my_player == 1)
-      //       calling_team = 0;
-      //   else
-      //       calling_team = 1;
-      //   called_crabs(atoi(team), calling_team);
-      //   print_hand(my_player);
-      //   print_table();
-      // }
+      if (strcmp(buffer, "crabs") == 0){
+        printf("Which team would you like to call for having crabs (0 or 1)?\n");
+        fgets(team, sizeof(buffer), stdin);
+        *strchr(team, '\n') = 0;
+        int calling_team;
+        if (my_player == 0 || my_player == 1)
+            calling_team = 0;
+        else
+            calling_team = 1;
+        called_crabs(atoi(team), calling_team);
+        print_hand(my_player);
+        print_table();
+      }
 
     }
 
