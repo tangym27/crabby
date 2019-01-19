@@ -67,22 +67,3 @@ int print_table() {
     }
     return -1;
 }
-
-char * return_table() {
-    char table[256];
-    if (current_table && current_table->table_cards) {
-        strcpy(table, "Cards on the table: \n");
-        for (int i=0; i<3; i++){
-            strcat(table, "[");
-            char buf[2];
-            sprintf(buf, "%d", i);
-            strcat(table, buf);
-            strcat(table, "] ");
-            strcat(table, cards[ current_table->table_cards[i]]);
-        }
-        strcat(table, "and [3] ");
-        strcat(table, cards[ current_table->table_cards[3]]);
-    }
-    char * tab = table;
-    return tab;
-}

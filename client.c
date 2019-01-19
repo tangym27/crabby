@@ -28,6 +28,7 @@ int check_buffer(char * buffer, int size, int crab_deck[]){
 }
 
 int main(int argc, char **argv) {
+
   // make_deck();
   // create_table();
 
@@ -88,9 +89,8 @@ int main(int argc, char **argv) {
         printf("It is currently your turn. Here is your hand: \n");
         make_deck();
         make_hand( my_player);
-        printf("did we make the hand?!\n");
         print_hand(my_player);
-        printf("can we print the hand?\n");
+        create_table();
         print_table();
 
         printf("NEED TO PRINT OUT HAND AND TABLE HERE\n");
@@ -111,55 +111,8 @@ int main(int argc, char **argv) {
       printf("enter data: ");
       fgets(buffer, sizeof(buffer), stdin);
       *strchr(buffer, '\n') = 0;
+      //if buffer == "swap"
     }
-
-
-    // WSJLFKDSJAKLFDJLFKJ
-    // while (read(server_socket, buffer, sizeof(buffer))) {
-    //   if (strcmp(buffer, ACK)) {
-    //     printf("You are player \033[0;31m#%d\x1b[0m!\n", atoi(buffer));
-    //     // printf("atoi(buffer)%d\n", atoi(buffer) );
-    //     if(atoi(buffer) < 2) {
-    //       printf("You are on TEAM \033[0;31m#0\x1b[0m!\n");
-    //       printf("Your secret message is %s\n", random_m(atoi(buffer)));
-    //     }
-    //     else{
-    //       printf("You are on TEAM \033[0;31m#1\x1b[0m!\n");
-    //       printf("Your secret message is %s\n", random_m(atoi(buffer)));
-    //     }
-    //     printf("What would you like your \033[0;31musername\x1b[0m to be? ");
-    //     char * response = malloc(256);
-    //     scanf("%s",response);
-    //     my_player = create_player(response);
-    //
-    //
-    //     printf("Welcome, crab! Here are your teammates.\n\n");
-    //     //  printf("It is currently your turn. Here is your hand: \n\n");
-    //     // make_hand( my_player);
-    //     print_hand( my_player);
-    //     print_table();
-    //     // printf("\n");
-    //   }
-    //   else break;
-    // }
-    // fflush(stdout);
-    // fflush(stdin);
-    //
-    // while(check_buffer(buffer, size, crab_deck)){
-    //   // fflush(stdout);
-    //   printf("enter data: ");
-    //   fgets(buffer, sizeof(buffer), stdin);
-    //   *strchr(buffer, '\n') = 0;
-    // }
-    //AKDLFJSDLKJFLKJLKFKL
-    // printf("What would you like your \033[0;31musername\x1b[0m to be? ");
-    // char * response = malloc(256);
-    // scanf("%s",response);
-    // int my_player = create_player(response);
-
-    //while the player didn't say they wanted to end their turn
-    //	printf("check");
-
 
     // while(check_buffer(buffer, size, crab_deck)){
     //   printf("Would you like to switch any cards? [y/n] ");
@@ -179,7 +132,9 @@ int main(int argc, char **argv) {
     //     //*strchr(buffer, '\n') = 0;
     //   }
     // }
-    if (!strcmp(buffer, "end")){
+
+
+    else if (!strcmp(buffer, "end")){
       printf("your turn has ended.\n");
       // strcpy(buffer,"drew");
       write(server_socket, buffer, sizeof(buffer));

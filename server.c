@@ -13,13 +13,6 @@ char * team1_secret = "";
 
 int main(int argc, char **argv) {
 
-  make_deck();
-  create_table();
-  printf("return%s\n",return_table() );
-
-  print_table();
-
-
   // char * team0_secret = random_selection(0);
   // char * team1_secret = random_selection(1);
   printf("\e[1;1H\e[2J\n\n");
@@ -72,11 +65,7 @@ int main(int argc, char **argv) {
     memset(buffer, 0, BUFFER_SIZE);
   }
 
-  make_deck();
-  create_table();
-  printf("return%s\n",return_table() );
 
-  print_table();
   memset(buffer, 0, BUFFER_SIZE);
 
   while(1) {
@@ -94,7 +83,7 @@ int main(int argc, char **argv) {
           //printf("cardid:%s\n", card_id);
           write(players[i], card_id, sizeof(card_id));
 
-         printf("return%s\n",return_table() );
+
           sprintf(buffer, "MESSAGE: return_table()");
           turns[i] -= 1;
         }
