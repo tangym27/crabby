@@ -73,11 +73,11 @@ int main(int argc, char **argv) {
         printf("You are player \033[0;31m#%d\x1b[0m!\n", atoi(buffer));
         if(atoi(buffer) < 2) {
           printf("You are on TEAM \033[0;31m#0\x1b[0m!\n");
-      //    printf("Your secret message is \033[0;31m#%s\x1b[0m!\n",  /*random_m(atoi(buffer))*/);
+          printf("Your secret message is \033[0;31m#%s\x1b[0m!\n",  random_m(atoi(buffer)));
         }
         else{
           printf("You are on TEAM \033[0;31m#1\x1b[0m!\n");
-      //    printf("Your secret message is \033[0;31m#%s\x1b[0m!\n", /*random_m(atoi(buffer))*/);
+          printf("Your secret message is \033[0;31m#%s\x1b[0m!\n", random_m(atoi(buffer)));
         }
         printf("It is currently your turn. Here is your hand: \n");
         make_deck();

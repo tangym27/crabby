@@ -23,8 +23,7 @@ out “You’ve got crabs!” and the team will be awarded a crab (point). If an
 correctly guesses what it is), that team will win the point instead. If “You’ve got crabs!” is prematurely called out,
 meaning that the person does not have a four of a kind, that team will lose a crab (point).
 
-After the point is awarded, the player gets four new cards from the deck. The game continues until there are no more crabs
-to be given out.
+After the point is awarded, the player gets four new cards from the deck. The game continues until a team gets five points.
 
 Teammates are randomly assigned a secret signal to use with each other. When one partner has achieved crabs, they might transmit
 words like “tomato”, “rose”, “apple”, and “heart”. To trick opponents, a partner could bluff by signaling “blueberry” when
@@ -37,10 +36,10 @@ they do not have crabs (which seems like it could fit into the “tomato”/”a
 - To run the clients: ./client, for each client that you listed would be playing when you declared the number of players. The game will not start until this number of players has joined.
 - And you're done! Enjoy the game.
 
-#### User commands: 
+#### User commands:
 To make moves, type these commands:
-- end : end your turn. Then you won't be able to swap cards, but there will be another player playing. 
-- swap: You can swap any card from your hand with one of the  cards on the table. You will be prompeted after to give the index's of each card. 
+- end : end your turn. Then you won't be able to swap cards, but there will be another player playing.
+- swap: You can swap any card from your hand with one of the  cards on the table. You will be prompted after to give the index's of each card. 
 
 ### Bugs:
 - The teams are hardcoded, as in you cannot pick your team member. The first two players that join (players 0 and 1) make up
@@ -48,5 +47,5 @@ team 1. Players 2 and 3 make up team 2.
 - Players cannot make a custom signal between themselves, but rather are given a random signal that is the same as the one
 given to their partner.
 - Need to include your IP address in networking.h for the clients to connect properly
-- Instead of the server maintaining one deck, the clients each have their own deck. 
-
+- Instead of the server maintaining one deck, the clients each have their own deck.
+- The person who just played does not get to see the message of the next player.
