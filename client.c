@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
   else
   server_socket = client_setup( TEST_IP );
 
-  read(server_socket, buffer, sizeof(buffer));
+  //read(server_socket, buffer, sizeof(buffer));
   //  crab_deck[size++] = 1;
   //  char * cards = calloc(250, sizeof(char));
   //  strcpy(cards, buffer);
@@ -85,31 +85,34 @@ int main(int argc, char **argv) {
 
         my_player = create_player(response);
         printf("Welcome %s \n", response);
-        //  printf("It is currently your turn. Here is your hand: \n\n");
-        // make_hand( my_player);
-        //print_hand(my_player);
-        //print_table()
+        printf("It is currently your turn. Here is your hand: \n");
+        make_hand( my_player);
+        printf("did we make the hand?!\n");
+        print_hand(my_player);
+        printf("can we print the hand?\n");
+        print_table();
 
         printf("NEED TO PRINT OUT HAND AND TABLE HERE\n");
         SETUP = 0;
       }
+      else if (strcmp(buffer, ACK)) {
+        printf("received: [%s]\n", buffer);
+      }
       // }
       else{
-        printf("received: [%s]\n", buffer);
-      // printf("received: [%s]\n", "bufadfsdfer");
         break;
-        exit(0);
       }
 
     }
     fflush(stdin);
     fflush(stdout);
     while(check_buffer(buffer, size, crab_deck)){
-      printf("PRINT OUR YOUR HAND HERE TOO \n" );
       printf("enter data: ");
       fgets(buffer, sizeof(buffer), stdin);
       *strchr(buffer, '\n') = 0;
     }
+
+
     // WSJLFKDSJAKLFDJLFKJ
     // while (read(server_socket, buffer, sizeof(buffer))) {
     //   if (strcmp(buffer, ACK)) {
@@ -180,27 +183,32 @@ int main(int argc, char **argv) {
     // strcpy(buffer,"drew");
     write(server_socket, buffer, sizeof(buffer));
     memset(buffer, 0, BUFFER_SIZE);
-  //  memset(buffer, 0, BUFFER_SIZE);
-  //  read(server_socket, buffer, sizeof(buffer));
-    //   //printf("buffer:%s\n", buffer);
-    //   int id = atoi(buffer);
-    // //  printf("Card name: %s\n",get_card_name(catalog, id) );
-    // char * name = calloc(50, sizeof(char));
-    // name = "boop";
-    // sprintf(buffer, "Drew the %s card.\n", name);
-    //   //if (strcmp(name, "Exploding Kitten")){
+    read(server_socket, buffer, sizeof(buffer));
+    sprintf(buffer, "send a message.\n");
 
-    printf("enter the super secret message to send to your partner: ");
-    fgets(message, sizeof(message), stdin);
-    *strchr(message, '\n') = 0;
-    write(server_socket, message, sizeof(message));
-
-    read(server_socket, message, sizeof(message));
-    // strcpy(buffer, message);
-  //  write(server_socket, message, sizeof(buffer));
-    printf("BUGGER: %s\n",message );
-    //crab_deck[size] = atoi(buffer);
-    size++;
-    //  }
+  //
+  // //  memset(buffer, 0, BUFFER_SIZE);
+  // //  read(server_socket, buffer, sizeof(buffer));
+  //   //   //printf("buffer:%s\n", buffer);
+  //   //   int id = atoi(buffer);
+  //   // //  printf("Card name: %s\n",get_card_name(catalog, id) );
+  //   // char * name = calloc(50, sizeof(char));
+  //   // name = "boop";
+  //   // sprintf(buffer, "Drew the %s card.\n", name);
+  //   //   //if (strcmp(name, "Exploding Kitten")){
+  //
+  //   printf("enter the super secret message to send to your partner: ");
+  //   fgets(message, sizeof(message), stdin);
+  //   *strchr(message, '\n') = 0;
+  //   write(server_socket, message, sizeof(message));
+  //   memset(message, 0, BUFFER_SIZE);
+  //
+  //   read(server_socket, message, sizeof(message));
+  //   // strcpy(buffer, message);
+  // //  write(server_socket, message, sizeof(buffer));
+  //   printf("BUGGER: %s\n", message );
+  //   //crab_deck[size] = atoi(buffer);
+  //   size++;
+  //   //  }
   }
 }

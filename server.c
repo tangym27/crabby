@@ -24,6 +24,7 @@ int main(int argc, char **argv) {
   int listen_socket;
   int client_socket;
   int f;
+  int j;
   int subserver_count = 0;
   char buffer[BUFFER_SIZE];
   char message[BUFFER_SIZE];
@@ -67,7 +68,10 @@ int main(int argc, char **argv) {
 
   make_deck();
   create_table();
+  printf("return%s\n",return_table() );
+
   print_table();
+  memset(buffer, 0, BUFFER_SIZE);
 
   while(1) {
     for (i = 0; i < num_players; i++) {
@@ -75,39 +79,46 @@ int main(int argc, char **argv) {
       while (turns[i]) {
         write(players[i], ACK, sizeof(ACK));
         read(players[i], buffer, sizeof(buffer));
+        if(strcmp(buffer, "end") == 0) {
+          char card[50];
+          strcpy(card, "this is suppose to be a card");
+          //printf("%s\n", card);
+          char card_id[8];
+          sprintf(card_id, "5");
+          //printf("cardid:%s\n", card_id);
+          write(players[i], card_id, sizeof(card_id));
 
+         printf("return%s\n",return_table() );
+          sprintf(buffer, "MESSAGE: return_table()");
+          turns[i] -= 1;
+        }
+        // printf( "what%s", print_table());
+    //    strcpy( buffer, return_table());
+        for (j = 0; j < num_players; j++)
+          if (j != i){
+            write(players[j], buffer, sizeof(buffer));
+          }
         // printf("here! %s a\n", buffer );
         // sprintf(buffer, "Player %d ended their turn. They sent the message '%s'", i, "dud");
         // write(players[i], "hi", 100);
         // sprintf(buffer, "Player %d ended their turn. They sent the message '%s'", i, "dud");
         // // write(client_socket, "jlkadsf", 10000);
         // printf("sdklfjs\n" );
-        if(strcmp(buffer, "end") == 0) {
-          printf("player ended their turn!\n" );
-          print_table();
-          read(players[i], message, sizeof(message));
-          if (i == 0){
-            write(players[1], message, sizeof(message));
-            write(players[2], message, sizeof(message));
-            write(players[3], message, sizeof(message));
-          }
-          if (i == 1){
-            write(players[0], message, sizeof(message));
-            write(players[2], message, sizeof(message));
-            write(players[3], message, sizeof(message));
-          }
-          if (i == 2){
-            write(players[0], message, sizeof(message));
-            write(players[1], message, sizeof(message));
-            write(players[3], message, sizeof(message));
-          }
-          if (i == 3){
-            write(players[0], message, sizeof(message));
-            write(players[1], message, sizeof(message));
-            write(players[2], message, sizeof(message));
-          }
-
-          printf("everything is gucci\n" );
+        // if(strcmp(buffer, "end") == 0) {
+        //   printf("player ended their turn!\n" );
+        //   print_table();
+        //   read(players[i], message, sizeof(message));
+        //   if (i == 0){
+        //     write(players[1], message, sizeof(message));
+        //     write(players[2], message, sizeof(message));
+        //     write(players[3], message, sizeof(message));
+        //   }
+        //   if (i == 1){
+        //     write(players[0], message, sizeof(message));
+        //     write(players[2], message, sizeof(message));
+        //     write(players[3], message, sizeof(message));
+        //   }
+        //   printf("everything is gucci\n" );
           // char card[50];
           // strcpy(card, draw_card(deck, &deck_size));
           // //printf("%s\n", card);
@@ -115,13 +126,13 @@ int main(int argc, char **argv) {
           // sprintf(card_id, "%d", get_card_id(card));
           // //printf("cardid:%s\n", card_id);
         //  sprintf(buffer, "Player %d ended their turn. They sent the message '%s'", i, "dud");
-          turns[i] -= 1;
+
         }
 
       }
     }
   }
-}
+
 
 
 /////done

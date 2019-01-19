@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
+#include <string.h>
 struct card { int card_index; };
 struct deck { int size; int current_deck[52]; };
 struct table { int table_cards[4]; };
@@ -36,7 +36,6 @@ int make_deck() {
     return 0;
 }
 
-
 /* Acts like a stack - decreases the size of the deck and returns a new card (represented as an integer.)
  * If the deck is out of cards, returns -1.
 */
@@ -67,4 +66,23 @@ int print_table() {
         return 0;
     }
     return -1;
+}
+
+char * return_table() {
+    char table[256];
+    if (current_table && current_table->table_cards) {
+        strcpy(table, "Cards on the table: \n");
+        for (int i=0; i<3; i++){
+            strcat(table, "[");
+            char buf[2];
+            sprintf(buf, "%d", i);
+            strcat(table, buf);
+            strcat(table, "] ");
+            strcat(table, cards[ current_table->table_cards[i]]);
+        }
+        strcat(table, "and [3] ");
+        strcat(table, cards[ current_table->table_cards[3]]);
+    }
+    char * tab = table;
+    return tab;
 }
