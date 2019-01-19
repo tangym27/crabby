@@ -37,7 +37,7 @@ they do not have crabs (which seems like it could fit into the “tomato”/”a
 - To run the clients: ./client, for each client that you listed would be playing when you declared the number of players. The game will not start until this number of players has joined.
 - And you're done! Enjoy the game.
 
-## Bugs:
+### Bugs:
 - The teams are hardcoded, as in you cannot pick your team member. The first two players that join (players 0 and 1) make up
 team 1. Players 2 and 3 make up team 2.
 - Players cannot make a custom signal between themselves, but rather are given a random signal that is the same as the one
