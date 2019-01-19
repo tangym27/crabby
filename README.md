@@ -49,3 +49,4 @@ given to their partner.
 - Need to include your IP address in networking.h for the clients to connect properly
 - Instead of the server maintaining one deck, the clients each have their own deck.
 - The person who just played does not get to see the message of the next player.
+- Players on the same team recieve different secret message types. (This is because the types should be determined by the server and then communicated to the clients, rather than the clients determining them individually.)
