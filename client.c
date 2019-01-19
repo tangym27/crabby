@@ -1,6 +1,7 @@
 #include "networking.h"
 #include "player.h"
 #include "deck.h"
+
 #include <stdio.h>
 #include <time.h>
 
@@ -27,8 +28,13 @@ int check_buffer(char * buffer, int size, int crab_deck[]){
 }
 
 int main(int argc, char **argv) {
-  make_deck();
-    
+  // make_deck();
+  // create_table();
+
+  printf("\e[1;1H\e[2J\n\n");
+  printf("Welcome to 'Why So \033[0;31mCrabby\x1b[0m?':\nA \033[0;31mcrabtastic\x1b[0m game by Maia Brydon, Ela Gulsen, Shafali Gupta, and Michelle Tang!\n");
+  printf("\n\nCurrently \033[0;31mwaiting for players.\x1b[0m Be patient!\n");
+
   int size = 1000;
   int crab_deck[51];
   int server_socket;
@@ -42,10 +48,6 @@ int main(int argc, char **argv) {
   else
   server_socket = client_setup( TEST_IP );
 
-  printf("\e[1;1H\e[2J\n\n");
-  printf("Welcome to 'Why So \033[0;31mCrabby\x1b[0m?':\nA \033[0;31mcrabtastic\x1b[0m game by Maia Brydon, Ela Gulsen, Shafali Gupta, and Michelle Tang!\n");
-  printf("\n\nCurrently \033[0;31mwaiting for players.\x1b[0m Be patient!\n");
-  
   read(server_socket, buffer, sizeof(buffer));
   //  crab_deck[size++] = 1;
   //  char * cards = calloc(250, sizeof(char));
@@ -88,12 +90,6 @@ int main(int argc, char **argv) {
         //print_hand(my_player);
         //print_table()
 
-        for (int i =0; i< atoi(buffer); i++){
-            make_hand( atoi(buffer));
-        }
-        
-        print_hand( atoi(buffer));
-        
         printf("NEED TO PRINT OUT HAND AND TABLE HERE\n");
         SETUP = 0;
       }

@@ -87,26 +87,7 @@ int main(int argc, char **argv) {
           printf("player ended their turn!\n" );
           print_table();
           read(players[i], message, sizeof(message));
-          if (i == 0){
-            write(players[1], message, sizeof(message));
-            write(players[2], message, sizeof(message));
-            write(players[3], message, sizeof(message));
-          }
-          if (i == 1){
-            write(players[0], message, sizeof(message));
-            write(players[2], message, sizeof(message));
-            write(players[3], message, sizeof(message));
-          }
-          if (i == 2){
-            write(players[0], message, sizeof(message));
-            write(players[1], message, sizeof(message));
-            write(players[3], message, sizeof(message));
-          }
-          if (i == 3){
-            write(players[0], message, sizeof(message));
-            write(players[1], message, sizeof(message));
-            write(players[2], message, sizeof(message));
-          }
+          write(players[1], message, sizeof(message));
           printf("everything is gucci\n" );
           // char card[50];
           // strcpy(card, draw_card(deck, &deck_size));
