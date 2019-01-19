@@ -194,8 +194,10 @@ int switch_turns( int team_no) {
  * If the team does not have crabs, one point is subtracted from the team who called.
  */
 int called_crabs( int check_team, int caller_team){
-  struct team team_to_check = teams[check_team];
-  struct team team_calling = teams[caller_team];
+  struct team * team_to_check = malloc(256);
+  team_to_check = teams[check_team];
+  struct team * team_calling = malloc(256);
+  team_calling = teams[caller_team];
   if (check_crabs(team_to_check->p_0->p_num) || check_crabs(team_to_check->p_1->p_num)){
     printf("YES! They had crabs! One point has been awarded to your team.\n");
     team_calling->points++;
