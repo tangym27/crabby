@@ -194,18 +194,18 @@ int switch_turns( int team_no) {
  * If the team does not have crabs, one point is subtracted from the team who called.
  */
 int called_crabs( int check_team, int caller_team){
-  struct team * team_to_check = teams[check_team];
-  struct team * team_calling = teams[caller_team];
-  if (check_crabs(team_to_check->p_0) || check_crabs(team_to_check->p_1)){
+  struct team team_to_check = teams[check_team];
+  struct team team_calling = teams[caller_team];
+  if (check_crabs(team_to_check->p_0->p_num) || check_crabs(team_to_check->p_1->p_num)){
     printf("YES! They had crabs! One point has been awarded to your team.\n");
     team_calling->points++;
-    if (team_to_check->p_0->hand[0] != NULL){
+    if (team_to_check->p_0->hand[0]){
       make_hand(team_to_check->p_0->p_num);
       print_hand(team_to_check->p_0->p_num);
     }
     else{
       make_hand(team_to_check->p_1->p_num);
-      print_hand(team_to_check->p_1)->p_num);
+      print_hand(team_to_check->p_1->p_num);
     }
   }
   else{
@@ -215,27 +215,6 @@ int called_crabs( int check_team, int caller_team){
   return 0;
 }
 
-//
-// int (){
-//   srand( time(NULL));
-
-
-// int main(int argc, char **argv) {
-//     srand( time(NULL));
-//
-//     int my_player = create_player("crabby_laddy_2008");
-//     int my_teammate = create_player("X_lobster_d00d_X");
-//
-//     make_deck();
-//
-//     printf("YOUR HAND:\n");
-//     make_hand( my_player);
-//     print_hand( my_player);
-//
-//     printf("\n\nYOUR TEAMMATE'S HAND:\n");
-//     make_hand( my_teammate);
-//     print_hand( my_teammate);
-//
 //     int my_team = form_team( my_player, my_teammate);
 //      teams[my_team]->p_0->is_turn = 1;
 //      if (teams[my_team]->p_0->is_turn == 1){
@@ -266,12 +245,6 @@ int called_crabs( int check_team, int caller_team){
 //
 //      }
 //
-//     add_point(my_player);
-//     printf("\ncrabby team points: %d\n", get_points( my_player));
-//     add_point(my_teammate);
-//     printf("crabby team points: %d\n", get_points( my_teammate));
-//
-//
 //     create_table();
 //     print_table();
 //
@@ -280,9 +253,4 @@ int called_crabs( int check_team, int caller_team){
 //     //switch_turns( my_team);
 //
 //     //if (swap_cards(1, 1, 1) == -2) printf("Hey! It's not your turn. No switch was made.\n");
-//
-//
-//     print_hand( my_player);
-//     printf("\n");
-//     print_table();
 // }
