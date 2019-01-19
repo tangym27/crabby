@@ -6,8 +6,7 @@
 Our project is based on the card game, You’ve Got Crabs. Players break up into groups of two and try to win as many
 crabs as possible.
 
-To start, the team will get a secret signal which will indicate when a person has ‘crabs.’ In
-the real-life game, the signal can be touching your nose or itching your eyebrow. In our version, it will be a secret
+To start, the team will get a secret signal which will indicate when a person has ‘crabs.’ In our version, it will be a secret
 phrase/codeword that only the two members have access to. Each player then gets four cards and the objective
 (to get ‘crabs’) is to have four of a kind.
 
@@ -39,8 +38,9 @@ they do not have crabs (which seems like it could fit into the “tomato”/”a
 
 #### User commands: 
 To make moves, type these commands:
-- end : end your turn. Then you won't be able to swap cards, but there will be another player playing. 
-- swap: You can swap any card from your hand with one of the  cards on the table. You will be prompeted after to give the index's of each card. 
+- `end `end your turn. Then you won't be able to swap cards, but there will be another player playing. 
+- `swap` You can swap any card from your hand with one of the cards on the table. You will be prompeted after to give the index's of each card. 
+- `new table` Changes the cards on the rable
 
 ### Bugs:
 - The teams are hardcoded, as in you cannot pick your team member. The first two players that join (players 0 and 1) make up
