@@ -75,8 +75,10 @@ int main(int argc, char **argv) {
         write(players[i], ACK, sizeof(ACK));
         read(players[i], buffer, sizeof(buffer));
         if(strcmp(buffer, "end") == 0) {
-          char card[50];
-          strcpy(card, "this is suppose to be a card");
+
+          // strcpy(card, "this is suppose to be a card");
+          read(players[i], message, sizeof(message));
+          printf("message?%s\n",message );
           //printf("%s\n", card);
           char card_id[8];
           sprintf(card_id, "5");
@@ -84,7 +86,7 @@ int main(int argc, char **argv) {
           write(players[i], card_id, sizeof(card_id));
 
 
-          sprintf(buffer, "MESSAGE: return_table()");
+          sprintf(buffer, "%s", message);
           turns[i] -= 1;
         }
         // printf( "what%s", print_table());

@@ -187,12 +187,12 @@ int switch_turns( int team_no) {
     return 0;
 }
 
-// /* Given the number of the team to check and the number of the team who called crabs,
-//  * checks if the team to check has crabs.
-//  * If the team has crabs, one point is added to the team who called, and the team with
-//  * crabs is dealt a new hand.
-//  * If the team does not have crabs, one point is subtracted from the team who called.
-//  */
+/* Given the number of the team to check and the number of the team who called crabs,
+ * checks if the team to check has crabs.
+ * If the team has crabs, one point is added to the team who called, and the team with
+ * crabs is dealt a new hand.
+ * If the team does not have crabs, one point is subtracted from the team who called.
+ */
 // int called_crabs( int check_team, int caller_team){
 //   struct team * team_to_check = teams[check_team];
 //   struct team * team_calling = teams[caller_team];

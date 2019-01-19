@@ -63,6 +63,7 @@ int main(int argc, char **argv) {
   // }
   int my_player = 0;
   int SETUP = 1;
+  int SETUP2 =1;
   //the game has started bc it read.
   while (1) {
 
@@ -90,7 +91,7 @@ int main(int argc, char **argv) {
         printf("NEED TO PRINT OUT HAND AND TABLE HERE\n");
         SETUP = 0;
       }
-      else if (strcmp(buffer, ACK)) {
+      else if (strcmp(buffer, ACK) && SETUP2) {
         printf("received: [%s]\n", buffer);
         printf("You are player \033[0;31m#%d\x1b[0m!\n", atoi(buffer));
         // printf("atoi(buffer)%d\n", atoi(buffer) );
@@ -117,10 +118,10 @@ int main(int argc, char **argv) {
       *strchr(buffer, '\n') = 0;
 
       if (strcmp(buffer, "swap") == 0){
-        printf("Which card do you want to put on the table?\n");
+        printf("Which card do you want to put on the table? (enter card index num)\n");
         fgets(handpos, sizeof(buffer), stdin);
         *strchr(handpos, '\n') = 0;
-        printf("Which card on the table do you want to take?\n");
+        printf("Which card on the table do you want to take? (enter card index num)\n");
         fgets(deckpos, sizeof(buffer), stdin);
         *strchr(deckpos, '\n') = 0;
         swap_cards(my_player, atoi(handpos), atoi(deckpos));
@@ -129,7 +130,13 @@ int main(int argc, char **argv) {
         print_table();
       }
 
-    //   if (strcmp(buffer, "crabs") == 0){
+      if(strcmp(buffer, "new table") == 0){
+        printf("Changing table cards...\n");
+        create_table();
+        print_table();
+      }
+
+      if (strcmp(buffer, "crabs") == 0){
     //     printf("Which team would you like to call for having crabs (0 or 1)?\n");
     //     fgets(team, sizeof(buffer), stdin);
     //     *strchr(team, '\n') = 0;
@@ -140,9 +147,9 @@ int main(int argc, char **argv) {
     //         calling_team = 1;
     //     called_crabs(team, calling_team);
     // ///    swap_cards(my_player, atoi(handpos), atoi(deckpos));
-    //     print_hand(my_player);
-    //     print_table();
-    //   }
+        print_hand(my_player);
+        print_table();
+      }
 
 
     }
@@ -172,6 +179,14 @@ int main(int argc, char **argv) {
       // strcpy(buffer,"drew");
       write(server_socket, buffer, sizeof(buffer));
       memset(buffer, 0, BUFFER_SIZE);
+
+      printf("Please enter a message to send to the other users: \n");
+      fgets(message, sizeof(message),stdin);
+      *strchr(message, '\n') = 0;
+      write(server_socket, message, sizeof(message));
+
+      memset(buffer, 0, BUFFER_SIZE);
+
       read(server_socket, buffer, sizeof(buffer));
       sprintf(buffer, "send a message.\n");
     }
