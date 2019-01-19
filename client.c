@@ -102,7 +102,7 @@ int main(int argc, char **argv) {
       fgets(buffer, sizeof(buffer), stdin);
       *strchr(buffer, '\n') = 0;
 
-      if (strcmp(buffer, "swap") == 0){
+      if (strcmp(buffer, "swap") == 0){ //if the player wants to swap their card for one on the table
         printf("Which card do you want to put on the table? (enter card index num)\n");
         fgets(handpos, sizeof(buffer), stdin);
         *strchr(handpos, '\n') = 0;
@@ -115,7 +115,7 @@ int main(int argc, char **argv) {
         print_table();
       }
 
-      if(strcmp(buffer, "new table") == 0){
+      if(strcmp(buffer, "new table") == 0){ //if the player wants a new table, but can only be called once per turn. 
         if (ONCE){
           printf("Sorry! You already switched it once before. Try again on your next turn!\n" );
         }
@@ -149,7 +149,7 @@ int main(int argc, char **argv) {
       }
     }
 ///////////////////////
-    if (!strcmp(buffer, "end")){
+    if (!strcmp(buffer, "end")){ //if playes said they wanted to end their turn
       printf("your turn has ended.\n");
       write(server_socket, buffer, sizeof(buffer));
       memset(buffer, 0, BUFFER_SIZE);
