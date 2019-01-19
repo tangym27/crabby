@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 struct card { int card_index; };
@@ -10,6 +11,8 @@ char * cards[13] = {"Crabrador Retriever", "Crabbi", "Jab Crab", "Taxi Crab", "A
 
 struct deck * current_game;
 struct table * current_table;
+
+char* itoa(int, char* , int);
 
 /* Creates a deck that contains 4 instances of each card, randomly scattered throughout the deck.
  * Deck is stored in struct deck * current_game.
@@ -67,4 +70,22 @@ int print_table() {
         return 0;
     }
     return -1;
+}
+
+char * return_table() {
+    char * table;
+    if (current_table->table_cards) {
+        strcpy(table, "Cards on the table: \n");
+        for (int i=0; i<3; i++){
+            strcat(table, "[");
+            char buf[2];
+            sprintf(buf, "%d", i);
+            strcat(table, buf);
+            strcat(table, "] ");
+            strcat(table, cards[ current_table->table_cards[i]]);
+        }
+        strcat(table, "and [3] ");
+        strcat(table, cards[ current_table->table_cards[3]]);
+        return table;
+    }
 }
