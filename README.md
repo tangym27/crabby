@@ -1,5 +1,6 @@
 # project02
 Project 2: The Final Frontier
+Maia Brydon, Ela Gulsen, Shafali Gupta, Michelle Tang
 
 How to run this project:
 - Find your IP address and type it into networking.h, LINE 19, #define TEST_IP [your ip here]
