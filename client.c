@@ -42,6 +42,9 @@ int main(int argc, char **argv) {
   char buffer[BUFFER_SIZE];
   char username[100];
   char message[BUFFER_SIZE];
+  char deckpos[BUFFER_SIZE];
+  char handpos[BUFFER_SIZE];
+  char team[BUFFER_SIZE];
   //char ** catalog = create_catalog(&cat_size);
 
   if (argc == 2)
@@ -69,6 +72,26 @@ int main(int argc, char **argv) {
       // printf("received: [%s]\n", buffer);
       printf("THIS IS THE SETUP%d\n",SETUP );
       if (strcmp(buffer, ACK) && SETUP) {
+
+        printf("What would you like your \033[0;31musername\x1b[0m to be? ");
+        char * response = malloc(256);
+        // sscanf("%s",response);
+        fgets(response,sizeof(response),stdin);
+
+        my_player = create_player(response);
+        printf("Welcome %s \n", response);
+        printf("It is currently your turn. Here is your hand: \n");
+        make_deck();
+        make_hand(my_player);
+        print_hand(my_player);
+        create_table();
+        print_table();
+
+        printf("NEED TO PRINT OUT HAND AND TABLE HERE\n");
+        SETUP = 0;
+      }
+      else if (strcmp(buffer, ACK)) {
+        printf("received: [%s]\n", buffer);
         printf("You are player \033[0;31m#%d\x1b[0m!\n", atoi(buffer));
         // printf("atoi(buffer)%d\n", atoi(buffer) );
         if(atoi(buffer) < 2) {
@@ -79,25 +102,6 @@ int main(int argc, char **argv) {
           printf("You are on TEAM \033[0;31m#1\x1b[0m!\n");
           printf("Your secret message is %s\n", random_m(atoi(buffer)));
         }
-        printf("What would you like your \033[0;31musername\x1b[0m to be? ");
-        char * response = malloc(256);
-        // sscanf("%s",response);
-        fgets(response,sizeof(response),stdin);
-
-        my_player = create_player(response);
-        printf("Welcome %s \n", response);
-        printf("It is currently your turn. Here is your hand: \n");
-        make_deck();
-        make_hand( my_player);
-        print_hand(my_player);
-        create_table();
-        print_table();
-
-        printf("NEED TO PRINT OUT HAND AND TABLE HERE\n");
-        SETUP = 0;
-      }
-      else if (strcmp(buffer, ACK)) {
-        printf("received: [%s]\n", buffer);
       }
       // }
       else{
@@ -111,7 +115,36 @@ int main(int argc, char **argv) {
       printf("enter data: ");
       fgets(buffer, sizeof(buffer), stdin);
       *strchr(buffer, '\n') = 0;
-      //if buffer == "swap"
+
+      if (strcmp(buffer, "swap") == 0){
+        printf("Which card do you want to put on the table?\n");
+        fgets(handpos, sizeof(buffer), stdin);
+        *strchr(handpos, '\n') = 0;
+        printf("Which card on the table do you want to take?\n");
+        fgets(deckpos, sizeof(buffer), stdin);
+        *strchr(deckpos, '\n') = 0;
+        swap_cards(my_player, atoi(handpos), atoi(deckpos));
+        printf("atoi(handpos)%d\n", atoi(handpos) );
+        print_hand(my_player);
+        print_table();
+      }
+
+    //   if (strcmp(buffer, "crabs") == 0){
+    //     printf("Which team would you like to call for having crabs (0 or 1)?\n");
+    //     fgets(team, sizeof(buffer), stdin);
+    //     *strchr(team, '\n') = 0;
+    //     int calling_team;
+    //     if (my_player->p_num == 0 || my_player->p_num == 1)
+    //         calling_team = 0;
+    //     else
+    //         calling_team = 1;
+    //     called_crabs(team, calling_team);
+    // ///    swap_cards(my_player, atoi(handpos), atoi(deckpos));
+    //     print_hand(my_player);
+    //     print_table();
+    //   }
+
+
     }
 
     // while(check_buffer(buffer, size, crab_deck)){
@@ -134,7 +167,7 @@ int main(int argc, char **argv) {
     // }
 
 
-    else if (!strcmp(buffer, "end")){
+    if (!strcmp(buffer, "end")){
       printf("your turn has ended.\n");
       // strcpy(buffer,"drew");
       write(server_socket, buffer, sizeof(buffer));
