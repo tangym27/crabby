@@ -138,8 +138,7 @@ int main(int argc, char **argv) {
 //     }//end stdin select
 //   }
 // }printf("\e[1;1H\e[2J\n\n");
-  printf("Welcome to 'Why So \033[0;31mCrabby\x1b[0m?':\nA \033[0;31mcrabtastic\x1b[0m game by Maia Brydon, Ela Gulsen, Shafali Gupta, and Michelle Tang!\n");
-  printf("\n\nCurrently \033[0;31mwaiting for players.\x1b[0m Be patient!\n");
+
 
 void subserver(int client_socket) {
   char buffer[BUFFER_SIZE];
