@@ -15,7 +15,10 @@
 #define BUFFER_SIZE 256
 #define ACK "DUMMY MESSAGE"
 #define PORT "9181"
-#define TEST_IP "149.89.150.115"
+// #define TEST_IP "http://127.0.0.1:5000"
+#define TEST_IP "127.0.0.1"
+
+// #define TEST_IP "149.89.150.115"
 
 void error_check(int i, char *s);
 int server_setup();

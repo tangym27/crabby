@@ -6,7 +6,7 @@ char * secrets[13] = {"Red Vegetables", "Cool-Toned Fruits", "Small Dogs", "Big 
 
 char * random_selection( int team_no) {
     srand( time( NULL));
-    int rand_no; 
+    int rand_no;
     for (int i = 0; i < team_no; i++) {
         rand_no = rand();
     }
