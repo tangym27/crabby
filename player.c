@@ -28,7 +28,6 @@ char * random_selection( int team_no) {
 
 char team0_secret[100] = "N/A";
 char team1_secret[100] = "N/A";
-char team2_secret[100] = "N/A";
 
 
 char * random_m(int player_num){
@@ -36,21 +35,22 @@ char * random_m(int player_num){
   printf("hey%d\n",strcmp(team1_secret, "N/A") );
 
   if (strcmp(team0_secret, "N/A") == 0){
+    // printf("hi\n" );
    strcpy(team0_secret , random_selection(1));
   }
   if (strcmp(team1_secret, "N/A") == 0){
-    strcpy(team1_secret , random_selection(2));
-  }
-  if (strcmp(team2_secret, "N/A") == 0){
-    strcpy(team2_secret , random_selection(3));
+    // printf("got here!!\n" );
+    strcpy(team1_secret , random_selection(3));
+
+//    strcpy(team0_secret , "burpo");
   }
   if (player_num < 2){
     return team0_secret;
   }
-  if (player_num < 4) {
+  else {
     return team1_secret;
   }
-  else return team2_secret;
+
 }
 
 /* Given a username, creates a player and returns their player number.
