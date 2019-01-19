@@ -32,7 +32,7 @@ Players’ signals are determined at the beginning of the game and are private b
 message, typically a word. To be strategic, partners should decide on a type of word rather than a word itself to be their
 signal.
 
-For example, partners could agree that their signal is a red object. When one partner has achieved crabs, they might transmit
+Teammates are randomly assigned a secret signal to use with each other. When one partner has achieved crabs, they might transmit
 words like “tomato”, “rose”, “apple”, and “heart”. To trick opponents, a partner could bluff by signaling “blueberry” when
 they do not have crabs (which seems like it could fit into the “tomato”/”apple” pattern without more information).
 
@@ -40,8 +40,7 @@ they do not have crabs (which seems like it could fit into the “tomato”/”a
 |    USER INTERFACE    |
 ========================
 Our game will have a main server and an even number of clients that will connect to the server. The main server will not be
-a player, but rather will facilitate the interactions between the players. There will be one initial client-to-client
-interactions to set up the secret signal, but then it will be cut off.
+a player, but rather will facilitate the interactions between the players. 
 
 The interface will display the four cards that players can switch with, most likely in the form of an array. It will then
 update whenever someone takes a card.
