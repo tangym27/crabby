@@ -92,7 +92,6 @@ int main(int argc, char **argv) {
         SETUP = 0;
       }
       else if (strcmp(buffer, ACK) && SETUP2) {
-        printf("received: [%s]\n", buffer);
         printf("You are player \033[0;31m#%d\x1b[0m!\n", atoi(buffer));
         // printf("atoi(buffer)%d\n", atoi(buffer) );
         if(atoi(buffer) < 2) {
@@ -103,6 +102,10 @@ int main(int argc, char **argv) {
           printf("You are on TEAM \033[0;31m#1\x1b[0m!\n");
           printf("Your secret message is %s\n", random_m(atoi(buffer)));
         }
+        SETUP2=0;
+      }
+      else if(strcmp(buffer, ACK)){
+          printf("received: [%s]\n", buffer);
       }
       // }
       else{
