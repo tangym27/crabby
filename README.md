@@ -15,4 +15,5 @@ team 1. Players 2 and 3 make up team 2.
 - Players cannot make a custom signal between themselves, but rather are given a random signal that is the same as the one
 given to their partner.
 - Need to include your IP address in networking.h for the clients to connect properly
+- Instead of the server maintaining one deck, the clients each have their own deck. 
 
