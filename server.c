@@ -7,6 +7,7 @@
 void process(char *s);
 void subserver(int from_client);
 
+
 char * team0_secret = "";
 char * team1_secret = "";
 
@@ -15,6 +16,9 @@ int main(int argc, char **argv) {
 
   // char * team0_secret = random_selection(0);
   // char * team1_secret = random_selection(1);
+  printf("\e[1;1H\e[2J\n\n");
+  printf("Welcome to 'Why So \033[0;31mCrabby\x1b[0m?':\nA \033[0;31mcrabtastic\x1b[0m game by Maia Brydon, Ela Gulsen, Shafali Gupta, and Michelle Tang!\n");
+  printf("\n\nCurrently \033[0;31mwaiting for players.\x1b[0m Be patient!\n");
   int i = 0;
   int num_players = 0;
   int listen_socket;
@@ -32,11 +36,6 @@ int main(int argc, char **argv) {
   else {
     sscanf(argv[1], "%d", &num_players);
   }
-  
-  printf("\e[1;1H\e[2J\n\n");
-  printf("Welcome to 'Why So \033[0;31mCrabby\x1b[0m?':\nA \033[0;31mcrabtastic\x1b[0m game by Maia Brydon, Ela Gulsen, Shafali Gupta, and Michelle Tang!\n");
-  printf("\n\nCurrently \033[0;31mwaiting for players.\x1b[0m Be patient!\n");
-  
   //set of file descriptors to read from
   // fd_set read_fds;
   int players[num_players], subservers[num_players], turns[num_players];
@@ -87,7 +86,27 @@ int main(int argc, char **argv) {
           printf("player ended their turn!\n" );
           print_table();
           read(players[i], message, sizeof(message));
-          write(players[1], message, sizeof(message));
+          if (i == 0){
+            write(players[1], message, sizeof(message));
+            write(players[2], message, sizeof(message));
+            write(players[3], message, sizeof(message));
+          }
+          if (i == 1){
+            write(players[0], message, sizeof(message));
+            write(players[2], message, sizeof(message));
+            write(players[3], message, sizeof(message));
+          }
+          if (i == 2){
+            write(players[0], message, sizeof(message));
+            write(players[1], message, sizeof(message));
+            write(players[3], message, sizeof(message));
+          }
+          if (i == 3){
+            write(players[0], message, sizeof(message));
+            write(players[1], message, sizeof(message));
+            write(players[2], message, sizeof(message));
+          }
+
           printf("everything is gucci\n" );
           // char card[50];
           // strcpy(card, draw_card(deck, &deck_size));
@@ -137,8 +156,7 @@ int main(int argc, char **argv) {
 //       printf("[server] subserver count: %d\n", subserver_count);
 //     }//end stdin select
 //   }
-// }printf("\e[1;1H\e[2J\n\n");
-
+// }
 
 void subserver(int client_socket) {
   char buffer[BUFFER_SIZE];

@@ -28,7 +28,7 @@ int check_buffer(char * buffer, int size, int crab_deck[]){
 }
 
 int main(int argc, char **argv) {
-  make_deck();
+  // make_deck();
   // create_table();
 
   printf("\e[1;1H\e[2J\n\n");
@@ -100,14 +100,8 @@ int main(int argc, char **argv) {
         break;
         exit(0);
       }
+
     }
-    
-    for (int i =0; i< atoi(buffer); i++){
-        make_hand( atoi(buffer));
-    }
-        
-    print_hand( atoi(buffer));
-    
     fflush(stdin);
     fflush(stdout);
     while(check_buffer(buffer, size, crab_deck)){

@@ -213,8 +213,6 @@ int called_crabs( int check_team, int caller_team){
   }
   return 0;
 }
-
-
 //
 // int (){
 //   srand( time(NULL));
