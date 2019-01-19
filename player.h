@@ -10,7 +10,7 @@
 #include <errno.h>
 
 #ifndef PLAYER_H
-#define PLAYER_H 
+#define PLAYER_H
 
 int create_player(char * usrname);
 int form_team( int player_no0, int player_no1);
@@ -20,6 +20,7 @@ int get_points( int player_no);
 int check_crabs( int player_no);
 int print_hand( int player_no);
 int swap_cards( int player_no, int player_card_index, int deck_card_index);
-int switch_turns( int team_no); 
+int switch_turns( int team_no);
+int called_crabs( int check_team, int caller_team);
 
 #endif

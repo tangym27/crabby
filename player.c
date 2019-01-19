@@ -193,27 +193,27 @@ int switch_turns( int team_no) {
  * crabs is dealt a new hand.
  * If the team does not have crabs, one point is subtracted from the team who called.
  */
-int called_crabs( int check_team, int caller_team){
-  struct team * team_to_check = teams[check_team];
-  struct team * team_calling = teams[caller_team];
-  if (check_crabs(team_to_check->p_0) || check_crabs(team_to_check->p_1)){
-    printf("YES! They had crabs! One point has been awarded to your team.\n");
-    team_calling->points++;
-    if (team_to_check->p_0->hand[0] != NULL){
-      make_hand(team_to_check->p_0->p_num);
-      print_hand(team_to_check->p_0->p_num);
-    }
-    else{
-      make_hand(team_to_check->p_1->p_num);
-      print_hand(team_to_check->p_1)->p_num);
-    }
-  }
-  else{
-    printf("They did not have crabs! Your team has lost one point.\n");
-    team_calling->points--;
-  }
-  return 0;
-}
+// int called_crabs( int check_team, int caller_team){
+//   struct team * team_to_check = teams[check_team];
+//   struct team * team_calling = teams[caller_team];
+//   if (check_crabs(team_to_check->p_0) || check_crabs(team_to_check->p_1)){
+//     printf("YES! They had crabs! One point has been awarded to your team.\n");
+//     team_calling->points++;
+//     if (team_to_check->p_0->hand[0] != NULL){
+//       make_hand(team_to_check->p_0->p_num);
+//       print_hand(team_to_check->p_0->p_num);
+//     }
+//     else{
+//       make_hand(team_to_check->p_1->p_num);
+//       print_hand(team_to_check->p_1)->p_num);
+//     }
+//   }
+//   else{
+//     printf("They did not have crabs! Your team has lost one point.\n");
+//     team_calling->points--;
+//   }
+//   return 0;
+// }
 
 //
 // int (){

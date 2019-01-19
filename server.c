@@ -85,8 +85,8 @@ int main(int argc, char **argv) {
           //printf("cardid:%s\n", card_id);
           write(players[i], card_id, sizeof(card_id));
 
-        //  strcat("Player #%d says: ", i, message)
-          sprintf(buffer, "%s", message);
+          //strcat("Player #%d says: ", message)
+          sprintf(buffer, "Player #%d says %s",i, message);
           turns[i] -= 1;
         }
         // printf( "what%s", print_table());
