@@ -37,6 +37,11 @@ they do not have crabs (which seems like it could fit into the “tomato”/”a
 - To run the clients: ./client, for each client that you listed would be playing when you declared the number of players. The game will not start until this number of players has joined.
 - And you're done! Enjoy the game.
 
+#### User commands: 
+To make moves, type these commands:
+- end : end your turn. Then you won't be able to swap cards, but there will be another player playing. 
+- swap: You can swap any card from your hand with one of the  cards on the table. You will be prompeted after to give the index's of each card. 
+
 ### Bugs:
 - The teams are hardcoded, as in you cannot pick your team member. The first two players that join (players 0 and 1) make up
 team 1. Players 2 and 3 make up team 2.
